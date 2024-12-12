@@ -1,1 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+html {
+  @apply font-sans;
+}
+body {
+  font-family: sans-serif, "Helvetica Neue", sans-serif;
+}
+* {
+  box-sizing: border-box !important;
+  padding: 0;
+  margin: 0;
+}
+/* *,
+*::before,
+*::after {
+  box-sizing: border-box !important;
+  padding: 0 !important;
+  margin: 0 !important;
+} */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none !important; /* For Chrome, Safari, and newer Edge */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #cac9c9;
+  border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #999999;
+}

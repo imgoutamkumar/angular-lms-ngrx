@@ -1,0 +1,22 @@
+<mat-toolbar class="!bg-black sticky top-0">
+  <button
+    mat-icon-button
+    class="example-icon !text-white"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon (click)="notifyParent()">menu</mat-icon>
+  </button>
+  <span class="text-[#BD2734] font-[300] text-[1.2rem]">LMS</span>
+  <span class="flex mx-auto text-[#BD2734] gap-4 text-[1rem]">
+    <a routerLink="/">Home</a>
+    <a routerLink="/courses">Courses</a>
+  </span>
+  <button
+    mat-raised-button
+    class="example-icon"
+    aria-label="Example icon-button with share icon"
+    (click)="logout()"
+  >
+    LogOut
+  </button>
+</mat-toolbar>

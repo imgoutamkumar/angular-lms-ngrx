@@ -1,0 +1,12 @@
+<mat-drawer-container class="container !bg-black" autosize>
+  <mat-drawer #drawer class="sidenav !bg-black" mode="side">
+    <app-admin-sidebar></app-admin-sidebar>
+  </mat-drawer>
+
+  <div class="sidenav-content !bg-[#161616]">
+    <app-admin-header (toggleSidebar)="drawer.toggle()"></app-admin-header>
+    <main className="w-full h-[calc(100vh-64px)] overflow-y-auto p-2">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</mat-drawer-container>

@@ -1,0 +1,22 @@
+<div class="otp-container">
+  <h2>Verify OTP</h2>
+  <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+    <div class="otp-inputs">
+      <input
+        #otpInput
+        *ngFor="let digit of digits.controls; let i = index"
+        type="text"
+        maxlength="1"
+        class="otp-box"
+        formControlName="digits.at(i)"
+        (input)="onInput($event, i)"
+      />
+    </div>
+    <div *ngIf="otpForm.invalid && otpForm.touched" class="error">
+      Please enter all 6 digits of the OTP.
+    </div>
+    <button type="submit" [disabled]="otpForm.invalid" class="btn btn-primary">
+      Verify OTP
+    </button>
+  </form>
+</div>

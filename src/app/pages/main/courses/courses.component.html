@@ -1,0 +1,9 @@
+<div class="w-full flex flex-grow">
+  <div class="flex flex-wrap gap-6 justify-center py-6 max-w-7xl mx-auto">
+    <app-course-card
+      *ngFor="let course of (courses$ | async)?.data; let i = index"
+      [courseData]="course"
+    >
+    </app-course-card>
+  </div>
+</div>

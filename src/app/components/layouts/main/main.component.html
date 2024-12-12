@@ -1,0 +1,22 @@
+<!-- <mat-drawer-container class="container !bg-black" autosize>
+  <mat-drawer #drawer class="sidenav !bg-black" mode="side">
+    <app-main-sidebar></app-main-sidebar>
+  </mat-drawer>
+
+  <div class="sidenav-content !bg-black">
+    <app-main-header (toggleSidebar)="drawer.toggle()"></app-main-header>
+    <router-outlet></router-outlet>
+  </div>
+</mat-drawer-container> -->
+<mat-drawer-container class="container !bg-black" autosize>
+  <mat-drawer #drawer class="sidenav !bg-black" mode="side">
+    <app-main-sidebar></app-main-sidebar>
+  </mat-drawer>
+
+  <div class="sidenav-content !bg-[#161616]">
+    <app-main-header (toggleSidebar)="drawer.toggle()"></app-main-header>
+    <main class="w-full h-[calc(100vh-64px)] overflow-y-auto p-2">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</mat-drawer-container>

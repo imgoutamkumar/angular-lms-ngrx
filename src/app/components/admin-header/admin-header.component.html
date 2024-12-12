@@ -1,0 +1,23 @@
+<mat-toolbar class="!bg-black sticky top-0 z-10 h-[64px]">
+  <button
+    mat-icon-button
+    class="example-icon !text-white"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon (click)="toggle()">menu</mat-icon>
+  </button>
+  <span class="text-[#BD2734] font-[300] text-[1.2rem]"
+    >Ngrx CRUD with Bun Rest APIs</span
+  >
+  <span class="flex mx-auto text-[#BD2734] gap-4 text-[1rem]">
+    <a routerLink="/admin">dashboard</a>
+  </span>
+  <button
+    mat-raised-button
+    class="example-icon"
+    aria-label="Example icon-button with share icon"
+    (click)="logout()"
+  >
+    LogOut
+  </button>
+</mat-toolbar>

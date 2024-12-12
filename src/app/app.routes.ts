@@ -20,13 +20,6 @@ export const routes: Routes = [
             (m) => m.HomeComponent
           ),
       },
-      /* {
-        path: 'products',
-        loadComponent: () =>
-          import('./pages/main/products/products.component').then(
-            (m) => m.ProductsComponent
-          ),
-      }, */
       {
         path: 'courses',
         loadComponent: () =>

@@ -1,22 +1,30 @@
-<div class="otp-container">
-  <h2>Verify OTP</h2>
-  <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
-    <div class="otp-inputs">
-      <input
-        #otpInput
-        *ngFor="let digit of digits.controls; let i = index"
-        type="text"
-        maxlength="1"
-        class="otp-box"
-        formControlName="digits.at(i)"
-        (input)="onInput($event, i)"
-      />
-    </div>
-    <div *ngIf="otpForm.invalid && otpForm.touched" class="error">
-      Please enter all 6 digits of the OTP.
-    </div>
-    <button type="submit" [disabled]="otpForm.invalid" class="btn btn-primary">
-      Verify OTP
-    </button>
-  </form>
+<div
+  class="w-full min-h-screen bg-gray-50 flex flex-col sm:justify-center items-center pt-6 sm:pt-0 px-2"
+>
+  <div class="w-full sm:max-w-md p-5 mx-auto border rounded-md">
+    <h2 class="text-center">Verify OTP</h2>
+    <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4 mx-auto flex justify-between items-center">
+        <input
+          #otpInput
+          *ngFor="let digit of digits.controls; let i = index"
+          type="text"
+          maxlength="1"
+          class="size-12 border border-gray-300 focus:border-black focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-xl md:font-semibold rounded-lg text-center bg-white"
+          formControlName="digits.at(i)"
+          (input)="onInput($event, i)"
+        />
+      </div>
+      <div *ngIf="otpForm.invalid && otpForm.touched" class="error">
+        Please enter all 6 digits of the OTP.
+      </div>
+      <button
+        type="submit"
+        [disabled]="otpForm.invalid"
+        class="w-full px-4 py-2 bg-gradient-to-r from-[#9B111E] to-[#D50032] text-white font-bold rounded-lg shadow-lg hover:from-[#D50032] hover:to-[#9B111E] focus:outline-none focus:ring-2 focus:ring-[#FF4C6A] focus:ring-offset-2 focus:ring-offset-[#D50032] transition duration-200"
+      >
+        Verify OTP
+      </button>
+    </form>
+  </div>
 </div>

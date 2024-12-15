@@ -41,9 +41,9 @@ export class SignInComponent {
     // Perform login logic here (e.g., dispatch NgRx action or call service)
     this.store.dispatch(login(this.loginForm.value));
 
-    this.store.select(selectLoginSuccess).subscribe((isLoggedIn) => {
-      console.log('isLoggedIn :', isLoggedIn);
-      if (isLoggedIn) {
+    this.store.select(selectLoginSuccess).subscribe((data) => {
+      console.log('data :', data);
+      if (data) {
         this.router.navigate(['/home']); // Navigate to home page on success
       }
     });

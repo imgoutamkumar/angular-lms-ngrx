@@ -15,7 +15,7 @@
           name="title"
           formControlName="title"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="enter fullname"
+          placeholder="enter title"
         />
       </div>
       <div>
@@ -31,38 +31,45 @@
           name="category"
           formControlName="category"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="enter username"
+          placeholder="select category"
         />
       </div>
       <div>
         <label
-          htmlFor="pricing"
+          htmlFor="price"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         >
-          Pricing
+          Price
         </label>
         <input
           type="number"
-          id="pricing"
-          name="pricing"
-          formControlName="pricing"
+          id="price"
+          name="price"
+          formControlName="price"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="enter price"
         />
       </div>
+
       <div>
         <label
           htmlFor="primaryLanguage"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         >
-          primaryLanguage
+          primary Language
         </label>
-        <input
-          type="text"
+        <select
           id="primaryLanguage"
           name="primaryLanguage"
           formControlName="primaryLanguage"
+          defaultValue=""
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        />
+        >
+          <option value="" disabled>Select Language</option>
+          <option value="hindi">Hindi</option>
+          <option value="english">English</option>
+          <option value="italian">Italian</option>
+        </select>
       </div>
       <div>
         <label
@@ -77,6 +84,7 @@
           name="subtitle"
           formControlName="subtitle"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="enter subtitle"
         />
       </div>
       <div>
@@ -93,7 +101,7 @@
           defaultValue=""
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
-          <option value="" disabled>Select User Type</option>
+          <option value="" disabled>Select Level</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
           <option value="hard">Hard</option>
@@ -109,12 +117,21 @@
         </label>
         <input
           type="file"
-          id="image"
-          name="image"
+          id="imageUrl"
+          name="imageUrl"
           (change)="onSelectCourseImage($event)"
           accept="image/*"
-          class="block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          class="hidden"
         />
+        <label
+          for="imageUrl"
+          class="w-[150px] flex justify-center items-center bg-blue-500 hover:bg-blue-600 text-white font-medium h-[40px] px-4 rounded-lg cursor-pointer text-center"
+        >
+          <ng-container *ngIf="selectedVideo; else uploadText">
+            <mat-icon>cloud_done</mat-icon>
+          </ng-container>
+          <ng-template #uploadText> Upload Image </ng-template>
+        </label>
       </div>
     </div>
     <div class="mb-6">
@@ -130,7 +147,7 @@
         name="welcomeMessage"
         formControlName="welcomeMessage"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="created by"
+        placeholder="write welcome message..."
       />
     </div>
     <div class="mb-6">
@@ -146,7 +163,7 @@
         name="objectives"
         formControlName="objectives"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="updated by"
+        placeholder="write course objectives here..."
       ></textarea>
     </div>
     <div class="mb-6">
@@ -162,7 +179,7 @@
         name="description"
         formControlName="description"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        placeholder="deleted by"
+        placeholder="write course description here..."
       ></textarea>
     </div>
 
@@ -195,7 +212,7 @@
             name="title-{{ $index }}"
             formControlName="title"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="created by"
+            placeholder="enter title"
           />
         </div>
         <div class="mb-4">
@@ -211,6 +228,7 @@
             name="videoUrl-{{ $index }}"
             (change)="onSelecteLectureVideo($event, $index)"
             class="hidden"
+            accept="video/*"
           />
           <label
             for="videoUrl-{{ $index }}"

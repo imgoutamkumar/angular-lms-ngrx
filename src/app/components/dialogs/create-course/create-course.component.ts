@@ -10,6 +10,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MediaService } from '../../../services/media.service';
 
 @Component({
   selector: 'app-create-course',
@@ -26,24 +27,27 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class CreateCourseComponent {
   createCourseForm: FormGroup;
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private mediaService: MediaService
+  ) {
     this.createCourseForm = this.formBuilder.group({
       title: [''],
       category: [''],
       level: [''],
-      pricing: [''],
+      price: [''],
       primaryLanguage: [''],
       subtitle: [''],
       description: [''],
       objectives: [''],
       welcomeMessage: [''],
-      image: [''],
+      imageUrl: [''],
       lectures: this.formBuilder.array([
         this.formBuilder.group({
           title: [''],
           isPreview: [false],
           videoUrl: [''],
-          //public_id: [''],
+          public_id: [''],
         }),
       ]),
       coupanCode: [''],
@@ -74,12 +78,23 @@ export class CreateCourseComponent {
 
   selectedVideo = '';
 
-  onSelectCourseImage(event: Event): void {
+  async onSelectCourseImage(event: Event): Promise<void> {
     const input = event.target as HTMLInputElement;
     if (input?.files?.length) {
       const file = input.files[0];
-      this.createCourseForm.patchValue({ image: file });
-      // this.createCourseForm.get('image')?.updateValueAndValidity();
+      const formData = new FormData();
+      formData.append('file', file);
+
+      this.mediaService.uploadFile(formData).subscribe({
+        next: (result) => {
+          console.log(result);
+          this.createCourseForm.patchValue({ imageUrl: result.data.url });
+        },
+        error: (error) => {
+          console.log('error', error);
+        },
+      });
+      //this.createCourseForm.patchValue({ image: file });
     }
   }
 
@@ -88,8 +103,20 @@ export class CreateCourseComponent {
     if (input?.files?.length) {
       const file = input.files[0];
       this.selectedVideo = input.files[0].name;
-      const lectureGroup = this.lectures.at(index) as FormGroup;
-      lectureGroup.patchValue({ videoUrl: file });
+      const formData = new FormData();
+      formData.append('file', file);
+
+      this.mediaService.uploadFile(formData).subscribe({
+        next: (result) => {
+          console.log(result);
+          const lectureGroup = this.lectures.at(index) as FormGroup;
+          lectureGroup.patchValue({ videoUrl: result.data.url });
+          lectureGroup.patchValue({ public_id: result.data.public_id });
+        },
+        error: (error) => {
+          console.log('error', error);
+        },
+      });
     }
   }
 

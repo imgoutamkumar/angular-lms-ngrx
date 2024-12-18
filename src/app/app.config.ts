@@ -18,8 +18,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
-    provideStore({ Course: CourseReducer, Login: AuthReducer }),
+    provideStore({ Course: CourseReducer, Auth: AuthReducer }),
     provideEffects([CourseEffects, AuthEffects]),
-    provideStoreDevtools(),
+    provideStoreDevtools(), provideAnimationsAsync(),
   ],
 };

@@ -4,9 +4,3 @@ export interface User {
   email: string;
   role: string;
 }
-
-export interface UserModel {
-  data: User | null;
-  errorMessage: string;
-  isLoading: boolean;
-}

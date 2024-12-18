@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { login } from '../../../store/actions/auth.action';
+import { AuthActions } from '../../../store/actions/auth.action';
 import { selectLoginSuccess } from '../../../store/selectors/auth.selectors';
 import { Observable } from 'rxjs';
 
@@ -37,14 +37,14 @@ export class SignInComponent {
       return;
     }
 
-    console.log('Login successful!', this.loginForm.value);
+    console.log('this.loginForm.value :', this.loginForm.value);
     // Perform login logic here (e.g., dispatch NgRx action or call service)
-    this.store.dispatch(login(this.loginForm.value));
+    this.store.dispatch(AuthActions.login(this.loginForm.value));
 
     this.store.select(selectLoginSuccess).subscribe((data) => {
-      console.log('data :', data);
       if (data) {
-        this.router.navigate(['/home']); // Navigate to home page on success
+        console.log('data :', data);
+        //this.router.navigate(['/main/home']); // Navigate to home page on success
       }
     });
   }

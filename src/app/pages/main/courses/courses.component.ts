@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { loadCourses } from '../../../store/actions/course.action';
-import { getCourseList } from '../../../store/selectors/course.selectors';
+import { selectAllCourses } from '../../../store/selectors/course.selectors';
 import { CourseCardComponent } from '../../../components/course-card/course-card.component';
 import { CommonModule } from '@angular/common';
 
@@ -18,7 +18,7 @@ export class CoursesComponent {
 
   constructor(private store: Store) {
     this.store.dispatch(loadCourses());
-    this.courses$ = this.store.select(getCourseList);
+    this.courses$ = this.store.select(selectAllCourses);
   }
 
   ngOnInit(): void {}

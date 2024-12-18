@@ -1,24 +1,25 @@
 import { createReducer, on } from '@ngrx/store';
 import { authState } from '../states/auth.state';
-import { login, loginFailure, loginSuccess } from '../actions/auth.action';
-
+import { AuthActions } from '../actions/auth.action';
+('../actions/auth.action');
 const authReducer = createReducer(
   authState,
-  on(login, (state) => ({ ...state, isLoading: true })),
-  on(loginSuccess, (state, action) => {
+  on(AuthActions.login, (state) => ({ ...state, isLoading: true })),
+  on(AuthActions.loginSuccess, (state, action) => {
+    console.log('action', action);
     return {
       ...state,
       data: action.data,
       isLoading: false,
-      errorMessage: '',
+      error: '',
     };
   }),
-  on(loginFailure, (state, action) => {
+  on(AuthActions.loginFailure, (state, action) => {
     return {
       ...state,
       data: null,
       isLoading: false,
-      errorMessage: action.errorMessage,
+      error: action.error,
     };
   })
 );

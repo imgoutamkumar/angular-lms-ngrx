@@ -2,11 +2,24 @@ import { Routes } from '@angular/router';
 import { MainComponent } from './components/layouts/main/main.component';
 import { AuthComponent } from './components/layouts/auth/auth.component';
 import { AdminComponent } from './components/layouts/admin/admin.component';
+import { UnAuthorizedComponent } from './pages/auth/un-authorized/un-authorized.component';
+import { NotFoundComponent } from './pages/auth/not-found/not-found.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
+    redirectTo: 'main/home',
+    pathMatch: 'full',
+  },
+  {
+    path: 'un-authorized',
+    component: UnAuthorizedComponent,
+  },
+  {
+    path: 'main',
     component: MainComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -32,6 +45,7 @@ export const routes: Routes = [
   {
     path: 'auth',
     component: AuthComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -64,6 +78,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: '',
@@ -88,6 +103,7 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '',
+    component: NotFoundComponent,
+    //redirectTo: 'auth/login',
   }, //fallback route
 ];

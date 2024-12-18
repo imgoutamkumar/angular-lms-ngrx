@@ -1,7 +1,5 @@
-import { UserModel, User } from '../../models/user.models';
-
-export const authState: UserModel = {
+export const authState: any = {
   data: null,
-  errorMessage: '',
+  error: null,
   isLoading: false,
 };

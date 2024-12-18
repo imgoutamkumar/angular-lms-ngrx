@@ -1,213 +1,304 @@
 <h2 mat-dialog-title>Add New Course</h2>
-<mat-dialog-content class="mat-typography">
-  <div class="max-w-3xl mx-auto p-16 border border-gray-400 rounded-lg my-4">
-    <form onSubmit="{handleFormSubmit}">
-      <div class="grid gap-6 mb-6 lg:grid-cols-2">
-        <div>
+<form [formGroup]="createCourseForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="mat-typography">
+    <div class="grid gap-6 mb-6 lg:grid-cols-2">
+      <div>
+        <label
+          htmlFor="title"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          Title
+        </label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          formControlName="title"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="enter fullname"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="category"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          Category
+        </label>
+        <input
+          type="text"
+          id="category"
+          name="category"
+          formControlName="category"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="enter username"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="pricing"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          Pricing
+        </label>
+        <input
+          type="number"
+          id="pricing"
+          name="pricing"
+          formControlName="pricing"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="primaryLanguage"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          primaryLanguage
+        </label>
+        <input
+          type="text"
+          id="primaryLanguage"
+          name="primaryLanguage"
+          formControlName="primaryLanguage"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="subtitle"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          Subtitle
+        </label>
+        <input
+          type="text"
+          id="subtitle"
+          name="subtitle"
+          formControlName="subtitle"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="level"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          Level
+        </label>
+        <select
+          id="level"
+          name="level"
+          formControlName="level"
+          defaultValue=""
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        >
+          <option value="" disabled>Select User Type</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+
+      <div>
+        <label
+          htmlFor="image"
+          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+        >
+          Upload Course Image
+        </label>
+        <input
+          type="file"
+          id="image"
+          name="image"
+          (change)="onSelectCourseImage($event)"
+          accept="image/*"
+          class="block bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+      </div>
+    </div>
+    <div class="mb-6">
+      <label
+        htmlFor="welcomeMessage"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+      >
+        Welcome Message
+      </label>
+      <input
+        type="text"
+        id="welcomeMessage"
+        name="welcomeMessage"
+        formControlName="welcomeMessage"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="created by"
+      />
+    </div>
+    <div class="mb-6">
+      <label
+        htmlFor="objectives"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+      >
+        Objectives
+      </label>
+      <textarea
+        type="text"
+        id="objectives"
+        name="objectives"
+        formControlName="objectives"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="updated by"
+      ></textarea>
+    </div>
+    <div class="mb-6">
+      <label
+        htmlFor="description"
+        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+      >
+        Description
+      </label>
+      <textarea
+        type="text"
+        id="description"
+        name="description"
+        formControlName="description"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="deleted by"
+      ></textarea>
+    </div>
+
+    <h5>Lectures</h5>
+    <div formArrayName="lectures">
+      @for (lecture of lectures.controls; track $index) {
+      <div class="flex justify-between items-center">
+        <p>Lecture {{ $index + 1 }}</p>
+        <button
+          mat-stroked-button
+          color="primary"
+          class="w-[25px] h-[25px] flex justify-center items-center"
+          (click)="removeLecture($index)"
+          type="button"
+        >
+          <mat-icon class="m-0">close</mat-icon>
+        </button>
+      </div>
+      <div [formGroupName]="$index" class="grid gap-6 mb-2 lg:grid-cols-4">
+        <div class="mb-4 col-span-2">
           <label
-            htmlFor="full_name"
+            htmlFor="title-{{ $index }}"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
-            Full Name
+            Lecture Title
           </label>
           <input
             type="text"
-            id="full_name"
-            name="full_name"
+            id="title-{{ $index }}"
+            name="title-{{ $index }}"
+            formControlName="title"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="enter fullname"
-            required
+            placeholder="created by"
           />
         </div>
-        <div>
+        <div class="mb-4">
           <label
-            htmlFor="user_name"
+            htmlFor="uploadVideo-{{ $index }}"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
           >
-            Username
-          </label>
-          <input
-            type="text"
-            id="user_name"
-            name="user_name"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="enter username"
-            required
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="email"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="xyz@gmail.com"
-            required
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="password"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="•••••••••"
-            required
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="phone"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Phone Number
-          </label>
-          <input
-            type="number"
-            id="phone"
-            name="phone"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="123-456-6789"
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-            required
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="user_type"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            User Type
-          </label>
-          <select
-            id="user_type"
-            name="user_type"
-            defaultValue=""
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          >
-            <option value="" disabled>Select User Type</option>
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-          </select>
-        </div>
-        <div class="mb-6">
-          <label
-            htmlFor="active"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Status
-          </label>
-          <div class="flex items-center gap-6">
-            <label
-              class="flex items-center text-sm text-gray-900 dark:text-gray-300"
-            >
-              <input
-                type="radio"
-                id="active"
-                name="active"
-                value="{true}"
-                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <span class="ml-2">Active</span>
-            </label>
-            <label
-              class="flex items-center text-sm text-gray-900 dark:text-gray-300"
-            >
-              <input
-                type="radio"
-                id="inactive"
-                name="active"
-                value="{false}"
-                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              />
-              <span class="ml-2">Inactive</span>
-            </label>
-          </div>
-        </div>
-        <div>
-          <label
-            htmlFor="photo"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-          >
-            Upload Photo
+            Upload Video
           </label>
           <input
             type="file"
-            id="photo"
-            name="photo"
-            accept="image/*"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
+            id="videoUrl-{{ $index }}"
+            name="videoUrl-{{ $index }}"
+            (change)="onSelecteLectureVideo($event, $index)"
+            class="hidden"
           />
+          <label
+            for="videoUrl-{{ $index }}"
+            class="flex justify-center items-center bg-blue-500 hover:bg-blue-600 text-white font-medium h-[40px] px-4 rounded-lg cursor-pointer text-center"
+          >
+            <ng-container *ngIf="selectedVideo; else uploadText">
+              <mat-icon>cloud_done</mat-icon>
+            </ng-container>
+            <ng-template #uploadText> Upload Video </ng-template>
+          </label>
+        </div>
+        <div class="mb-4">
+          <label
+            htmlFor="isPreview"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+          >
+            Free Preview
+          </label>
+          <div class="text-gray-900 text-sm p-2.5 space-x-2">
+            <input
+              name="isPreview"
+              formControlName="isPreview"
+              value="true"
+              type="radio"
+            />
+            <label for="">Yes</label>
+            <input
+              name="isPreview"
+              formControlName="isPreview"
+              value="false"
+              type="radio"
+            />
+            <label for="">No</label>
+          </div>
         </div>
       </div>
+      }
+    </div>
+
+    <div class="flex justify-end items-center">
+      <button
+        type="button"
+        mat-raised-button
+        class="h-[30px] flex items-center"
+        (click)="addLecture()"
+      >
+        <mat-icon>add</mat-icon> Add Lecture
+      </button>
+    </div>
+
+    <h5>Other Info</h5>
+    <div class="grid gap-6 mb-6 lg:grid-cols-2">
       <div class="mb-6">
         <label
-          htmlFor="created_by"
+          htmlFor="coupanCode"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         >
-          Created By
+          Coupan Code
         </label>
         <input
           type="text"
-          id="createdBy"
-          name="created_by"
+          id="coupanCode"
+          name="coupanCode"
+          formControlName="coupanCode"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="created by"
-          required
+          placeholder="enter coupan code"
         />
       </div>
       <div class="mb-6">
         <label
-          htmlFor="updated_by"
+          htmlFor="discount"
           class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
         >
-          Updated By
+          Discount
         </label>
         <input
-          type="text"
-          id="updated_by"
-          name="updated_by"
+          type="number"
+          id="discount"
+          name="discount"
+          formControlName="discount"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="updated by"
-          required
+          placeholder="enter discount percent"
         />
       </div>
-      <div class="mb-6">
-        <label
-          htmlFor="deleted_by"
-          class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-        >
-          Deleted By
-        </label>
-        <input
-          type="text"
-          id="deleted_by"
-          name="deleted_by"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          placeholder="deleted by"
-          required
-        />
-      </div>
-    </form>
-  </div>
-</mat-dialog-content>
-<mat-dialog-actions align="end" class="flex justify-center gap-2">
-  <button mat-raised-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button [mat-dialog-close]="true" cdkFocusInitial>
-    Install
-  </button>
-</mat-dialog-actions>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end" class="flex justify-center gap-2">
+    <button type="button" mat-raised-button mat-dialog-close>Cancel</button>
+    <button type="submit" mat-raised-button cdkFocusInitial>Create</button>
+  </mat-dialog-actions>
+</form>

@@ -3,6 +3,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AuthActions } from '../../store/actions/auth.action';
 
 @Component({
   selector: 'app-admin-header',
@@ -12,6 +14,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './admin-header.component.scss',
 })
 export class AdminHeaderComponent {
+  constructor(private store: Store) {}
   @Output() toggleSidebar = new EventEmitter<void>();
 
   toggle() {
@@ -19,6 +22,7 @@ export class AdminHeaderComponent {
   }
 
   logout() {
-    console.log('log out!');
+    console.log('logout called');
+    this.store.dispatch(AuthActions.logout());
   }
 }

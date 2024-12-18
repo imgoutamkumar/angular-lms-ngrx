@@ -44,6 +44,7 @@ export class SignInComponent {
     this.store.select(selectLoginSuccess).subscribe((data) => {
       if (data) {
         console.log('data :', data);
+
         //this.router.navigate(['/main/home']); // Navigate to home page on success
       }
     });

@@ -14,4 +14,11 @@ export class UserService {
       data
     );
   }
+
+  logout(): Observable<any> {
+    return this.httpClient.post<any>(
+      `https://node-lms-restapi.onrender.com/api/auth/logout`,
+      {}
+    );
+  }
 }

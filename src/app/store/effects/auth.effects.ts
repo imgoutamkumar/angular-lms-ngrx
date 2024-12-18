@@ -15,7 +15,7 @@ If the login action is triggered multiple times, exhaustMap ensures that only on
 export class AuthEffects {
   login$;
   setSessionOnLoginSuccess$;
-  //logout$;
+  logout$;
   constructor(private action$: Actions, private userService: UserService) {
     console.log('Actions injected:', this.action$);
     console.log('CourseService injected:', this.userService);
@@ -60,16 +60,30 @@ export class AuthEffects {
     );
 
     // Effect to handle logout and set session storage
-    /* this.logout$ = createEffect(
+    this.logout$ = createEffect(
       () =>
         this.action$.pipe(
           ofType(AuthActions.logout),
           tap(() => {
             console.log('Logging out, clearing session storage');
             sessionStorage.removeItem('authData');
+          }),
+          switchMap(() => {
+            return this.userService.logout().pipe(
+              map((resData: any) => {
+                return AuthActions.logoutSuccess({ message: resData.message });
+              }),
+              catchError((error) =>
+                of(
+                  AuthActions.logoutFailure({
+                    error: error.message || 'Unknown error',
+                  })
+                )
+              )
+            );
           })
         ),
       { dispatch: false }
-    ); */
+    );
   }
 }

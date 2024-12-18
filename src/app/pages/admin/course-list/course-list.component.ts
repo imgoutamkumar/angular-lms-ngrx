@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { Course } from '../../../models/course.models';
 import { selectAllCourses } from '../../../store/selectors/course.selectors';
 import { loadCourses } from '../../../store/actions/course.action';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-course-list',
@@ -23,6 +24,7 @@ import { loadCourses } from '../../../store/actions/course.action';
     FormsModule,
     FilterCoursesPipe,
     MatIconModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './course-list.component.html',
   styleUrl: './course-list.component.scss',

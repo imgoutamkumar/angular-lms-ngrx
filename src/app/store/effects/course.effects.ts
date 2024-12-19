@@ -1,10 +1,22 @@
 import { Injectable } from '@angular/core';
 import {
+  createCourse,
+  createCourseFaliure,
+  createCourseSuccess,
+  loadCourseById,
+  loadCourseByIdFailure,
+  loadCourseByIdSuccess,
   loadCourses,
   loadCoursesFaliure,
   loadCoursesSuccess,
 } from '../actions/course.action';
-import { catchError, exhaustMap, map, switchMap } from 'rxjs/operators';
+import {
+  catchError,
+  exhaustMap,
+  map,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CourseService } from '../../services/course.service';
 import { of } from 'rxjs';
@@ -12,6 +24,8 @@ import { of } from 'rxjs';
 @Injectable()
 export class CourseEffects {
   loadCourses$;
+  createCourse$;
+  loadCourseById$;
   constructor(private action$: Actions, private courseService: CourseService) {
     console.log('Actions injected:', this.action$);
     console.log('CourseService injected:', this.courseService);
@@ -23,7 +37,7 @@ export class CourseEffects {
           return this.courseService.getAllCourses().pipe(
             map((data) => {
               console.log('data', data);
-              return loadCoursesSuccess({ courses: data.data });
+              return loadCoursesSuccess({ courses: data.courses });
             }),
             catchError((error) =>
               of(
@@ -34,6 +48,36 @@ export class CourseEffects {
             )
           );
         })
+      )
+    );
+
+    // Create Course
+    this.createCourse$ = createEffect(() =>
+      this.action$.pipe(
+        ofType(createCourse),
+        mergeMap(({ course }) => {
+          return this.courseService.createCourse(course).pipe(
+            map((data) => createCourseSuccess({ course: data.course })),
+            catchError((error) =>
+              of(createCourseFaliure({ error: error.message }))
+            )
+          );
+        })
+      )
+    );
+
+    // Load Course By ID
+    this.loadCourseById$ = createEffect(() =>
+      this.action$.pipe(
+        ofType(loadCourseById),
+        exhaustMap(({ id }) =>
+          this.courseService.getCourseDetailsById(id).pipe(
+            map((data) => loadCourseByIdSuccess({ course: data.course })),
+            catchError((error) =>
+              of(loadCourseByIdFailure({ error: error.message }))
+            )
+          )
+        )
       )
     );
 
@@ -53,36 +97,6 @@ export class CourseEffects {
         )
       )
     ); */
-
-    // Load Course By ID
-    /* loadCourseById$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CourseActions.loadCourseById),
-      exhaustMap(({ id }) =>
-        this.courseService.getCourseById(id).pipe(
-          map((course) => CourseActions.loadCourseByIdSuccess({ course })),
-          catchError((error) =>
-            of(CourseActions.loadCourseByIdFailure({ error }))
-          )
-        )
-      )
-    )
-  ); */
-
-    // Create Course
-    /* createCourse$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CourseActions.createCourse),
-      mergeMap(({ course }) =>
-        this.courseService.createCourse(course).pipe(
-          map((newCourse) => CourseActions.createCourseSuccess({ course: newCourse })),
-          catchError((error) =>
-            of(CourseActions.createCourseFailure({ error }))
-          )
-        )
-      )
-    )
-  ); */
 
     // Update Course
     /* updateCourse$ = createEffect(() =>

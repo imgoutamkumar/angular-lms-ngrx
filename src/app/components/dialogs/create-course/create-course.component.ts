@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MediaService } from '../../../services/media.service';
+import { Store } from '@ngrx/store';
+import { createCourse } from '../../../store/actions/course.action';
 
 @Component({
   selector: 'app-create-course',
@@ -29,7 +31,8 @@ export class CreateCourseComponent {
   createCourseForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
-    private mediaService: MediaService
+    private mediaService: MediaService,
+    private store: Store
   ) {
     this.createCourseForm = this.formBuilder.group({
       title: [''],
@@ -45,7 +48,7 @@ export class CreateCourseComponent {
       lectures: this.formBuilder.array([
         this.formBuilder.group({
           title: [''],
-          isPreview: [false],
+          isFreePreview: [false],
           videoUrl: [''],
           public_id: [''],
         }),
@@ -123,5 +126,6 @@ export class CreateCourseComponent {
   onSubmit() {
     console.log('Submit button called');
     console.log('this.createCourseForm.value', this.createCourseForm.value);
+    this.store.dispatch(createCourse(this.createCourseForm.value));
   }
 }

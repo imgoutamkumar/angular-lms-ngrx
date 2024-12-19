@@ -2,9 +2,9 @@ import { Course, CourseModel } from '../../models/course.models';
 import { CourseQueryParams } from '../actions/course.action';
 
 export interface CourseState {
-  courses: Course[];
+  courses: Course[] | any;
   selectedCourse: Course | null;
-  loading: boolean;
+  isLoading: boolean;
   error: any;
   queryParams: CourseQueryParams;
   total: number; // Total number of courses for pagination
@@ -13,7 +13,7 @@ export interface CourseState {
 export const courseInitialState: CourseState = {
   courses: [],
   selectedCourse: null,
-  loading: false,
+  isLoading: false,
   error: null,
   queryParams: { search: '', filter: '', page: 1, limit: 10 },
   total: 0,

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 import { AuthActions } from '../actions/auth.action';
-import { catchError, exhaustMap, map, of, switchMap, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap, take, tap } from 'rxjs';
 
 //Note
 /* Use switchMap when you only care about the latest emission and want to cancel ongoing requests.
@@ -16,9 +16,10 @@ export class AuthEffects {
   login$;
   setSessionOnLoginSuccess$;
   logout$;
-  constructor(private action$: Actions, private userService: UserService) {
+  logoutSuccess$;
+  constructor(private action$: Actions, private authService: AuthService) {
     console.log('Actions injected:', this.action$);
-    console.log('CourseService injected:', this.userService);
+    console.log('CourseService injected:', this.authService);
 
     this.login$ = createEffect(() =>
       this.action$.pipe(
@@ -27,9 +28,14 @@ export class AuthEffects {
           console.log('action :', action);
         }),
         switchMap((data) => {
-          return this.userService.login(data).pipe(
+          return this.authService.login(data).pipe(
             map((resData: any) => {
-              return AuthActions.loginSuccess({ data: resData });
+              console.log(resData);
+              return AuthActions.loginSuccess({
+                user: resData.user,
+                token: resData.token,
+                role: resData.user.role,
+              });
             }),
             catchError((error) =>
               of(
@@ -50,10 +56,10 @@ export class AuthEffects {
           tap((action) => {
             console.log(
               'Login successful, setting session storage:',
-              action.data
+              action.user
             );
-            sessionStorage.setItem('role', action.data.user.role);
-            sessionStorage.setItem('token', action.data.token);
+            sessionStorage.setItem('role', action.role);
+            sessionStorage.setItem('token', action.token);
           })
         ),
       { dispatch: false } // No new action dispatched from this effect
@@ -66,10 +72,11 @@ export class AuthEffects {
           ofType(AuthActions.logout),
           tap(() => {
             console.log('Logging out, clearing session storage');
-            sessionStorage.removeItem('authData');
+            /* sessionStorage.removeItem('role');
+            sessionStorage.removeItem('token'); */
           }),
           switchMap(() => {
-            return this.userService.logout().pipe(
+            return this.authService.logout().pipe(
               map((resData: any) => {
                 return AuthActions.logoutSuccess({ message: resData.message });
               }),
@@ -82,8 +89,21 @@ export class AuthEffects {
               )
             );
           })
+        )
+      //{ dispatch: false }
+    );
+
+    this.logoutSuccess$ = createEffect(
+      () =>
+        this.action$.pipe(
+          ofType(AuthActions.logoutSuccess),
+          tap(() => {
+            console.log('Clearing session storage...');
+            sessionStorage.removeItem('role');
+            sessionStorage.removeItem('token');
+          })
         ),
-      { dispatch: false }
+      { dispatch: false } // No further actions dispatched
     );
   }
 }

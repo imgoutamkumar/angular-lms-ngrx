@@ -99,6 +99,13 @@ export const routes: Routes = [
             (m) => m.CourseListComponent
           ),
       },
+      {
+        path: 'course/details/:id',
+        loadComponent: () =>
+          import('./pages/admin/course-details/course-details.component').then(
+            (m) => m.CourseDetailsComponent
+          ),
+      },
     ],
   },
   {

@@ -1,18 +1,28 @@
 import { createReducer, on, State } from '@ngrx/store';
 import { courseInitialState } from '../states/course.state';
 import {
+  createCourseFaliure,
   deleteCourseSuccess,
+  loadCourseById,
+  loadCourseByIdFailure,
+  loadCourses,
   loadCoursesFaliure,
   loadCoursesSuccess,
   updateCourseSuccess,
 } from '../actions/course.action';
-import { state } from '@angular/animations';
+import {
+  createCourseSuccess,
+  createCourse,
+  loadCourseByIdSuccess,
+} from '../actions/course.action';
 
 const courseReducer = createReducer(
   courseInitialState,
+  on(loadCourses, (state) => ({ ...state, isLoading: true })),
   on(loadCoursesSuccess, (state, action) => {
     return {
       ...state,
+      isLoading: false,
       courses: action.courses,
       error: '',
     };
@@ -20,24 +30,55 @@ const courseReducer = createReducer(
   on(loadCoursesFaliure, (state, action) => {
     return {
       ...state,
-      courses: [],
+      courses: null,
+      error: action.error,
+    };
+  }),
+  on(createCourse, (state) => ({ ...state, isLoading: true })),
+  on(createCourseSuccess, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      courses: [...state.courses, action.course],
+    };
+  }),
+  on(createCourseFaliure, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
       error: action.error,
     };
   }),
 
+  on(loadCourseById, (state) => ({ ...state, isLoading: true })),
+  on(loadCourseByIdSuccess, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      selectedCourse: action.course,
+    };
+  }),
+  on(loadCourseByIdFailure, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error,
+    };
+  })
+
   // Update Course
-  on(updateCourseSuccess, (state, action) => ({
+  /* on(updateCourseSuccess, (state, action) => ({
     ...state,
-    courses: state.courses.map((c) =>
-      c.id === action.course.id ? action.course : c
+    courses: state.courses.map((course) =>
+      course.id === action.course.id ? action.course : c
     ),
-  })),
+  })), */
 
   // Delete Course
-  on(deleteCourseSuccess, (state, action) => ({
+  /* on(deleteCourseSuccess, (state, action) => ({
     ...state,
     courses: state.courses.filter((course) => course.id !== action.id),
-  }))
+  })) */
 );
 
 export function CourseReducer(state: any, action: any) {

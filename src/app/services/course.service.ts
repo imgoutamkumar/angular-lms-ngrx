@@ -9,26 +9,29 @@ import { Course } from '../models/course.models';
 export class CourseService {
   constructor(private httpClient: HttpClient) {}
 
-  createProduct(data: any): Observable<any> {
+  createCourse(data: any): Observable<any> {
     return this.httpClient.post<any>(
-      `https://bun-lms-restapi.onrender.com/courses/`,
-      data
-    );
-  }
-
-  getAllCourses(): Observable<any> {
-    const params = new HttpParams().set('limit', 10).set('level', 'Medium');
-    return this.httpClient.get<any>(
-      `https://bun-lms-restapi.onrender.com/courses/`,
+      `https://node-lms-restapi.onrender.com/api/course/create`,
+      data,
       {
-        params,
+        withCredentials: true, // Ensure cookies are sent with the request
       }
     );
   }
 
-  getAllProductById(id: number): Observable<any> {
+  getAllCourses(): Observable<any> {
+    //const params = new HttpParams().set('limit', 10).set('level', 'Medium');
     return this.httpClient.get<any>(
-      `https://bun-lms-restapi.onrender.com/courses/${id}`
+      `https://node-lms-restapi.onrender.com/api/course/all-courses`
+      /* {
+        params,
+      } */
+    );
+  }
+
+  getCourseDetailsById(id: string): Observable<any> {
+    return this.httpClient.get<any>(
+      `https://node-lms-restapi.onrender.com/api/course/details/${id}`
     );
   }
 

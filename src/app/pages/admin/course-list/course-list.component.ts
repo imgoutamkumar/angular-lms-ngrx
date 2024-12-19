@@ -10,8 +10,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { Course } from '../../../models/course.models';
 import { selectAllCourses } from '../../../store/selectors/course.selectors';
-import { loadCourses } from '../../../store/actions/course.action';
+import {
+  loadCourseById,
+  loadCourses,
+} from '../../../store/actions/course.action';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course-list',
@@ -31,7 +35,11 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class CourseListComponent {
   courses$ = signal<Array<Course>>([]);
-  constructor(private courseService: CourseService, private store: Store) {
+  constructor(
+    private courseService: CourseService,
+    private store: Store,
+    private router: Router
+  ) {
     this.store.dispatch(loadCourses());
     this.store.select(selectAllCourses).subscribe((courses) => {
       this.courses$.set(courses);
@@ -54,5 +62,10 @@ export class CourseListComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  onClickViewButton(id: string) {
+    this.router.navigate([`/admin/course/details/${id}`]);
+    //this.router.navigate(['/admin/course/details'], { queryParams: { id } }); // another way
   }
 }

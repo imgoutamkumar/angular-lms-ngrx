@@ -22,18 +22,20 @@
   <div
     class="w-full h-full overflow-y-scroll flex flex-col gap-4 rounded-xl bg-[#282727] p-2 hide-scrollbar"
   >
-    @for (product of courses$() | filterCourses:searchTerm(); track $index) {
+    @for (course of courses$() | filterCourses:searchTerm(); track $index) {
     <div
       class="w-full items-center rounded-xl h-[80px] grid grid-cols-5 px-6 py-2 bg-[#1a1919] gap-4"
     >
       <div class="col-span-1 flex flex-col justify-center w-full">
-        <h2 class="text-white text-[1rem]">{{ product?.title }}</h2>
+        <h2 class="text-white text-[1rem]">{{ course?.title | uppercase }}</h2>
       </div>
       <div class="col-span-4 flex justify-between items-center w-full">
         <h3 class="text-white text-[1rem]">
-          {{ product?.description | uppercase }}
+          {{ course?.description }}
         </h3>
-        <button mat-raised-button>Edit</button>
+        <button mat-raised-button (click)="onClickViewButton(course?._id)">
+          View
+        </button>
       </div>
     </div>
     }

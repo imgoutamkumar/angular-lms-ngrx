@@ -4,6 +4,7 @@ import {
   emptyProps,
   props,
 } from '@ngrx/store';
+import { User } from '../../models/user.models';
 
 /* export const login = createAction(
   '[Auth] Login',
@@ -39,7 +40,7 @@ export const AuthActions = createActionGroup({
   source: 'Auth',
   events: {
     login: props<{ email: string; password: string }>(), // Login request action
-    loginSuccess: props<{ data: any }>(), // Login success action
+    loginSuccess: props<{ user: User | null; token: string; role: string }>(), // Login success action
     loginFailure: props<{ error: any }>(), // Login failure action
 
     signup: props<{ email: string; password: string; name: string }>(), // Signup request action

@@ -130,7 +130,10 @@
           <ng-container *ngIf="selectedVideo; else uploadText">
             <mat-icon>cloud_done</mat-icon>
           </ng-container>
-          <ng-template #uploadText> Upload Image </ng-template>
+          <ng-template #uploadText>
+            <mat-icon>image</mat-icon>
+            <span class="text-[0.7rem]"> Upload Image</span>
+          </ng-template>
         </label>
       </div>
     </div>
@@ -237,7 +240,10 @@
             <ng-container *ngIf="selectedVideo; else uploadText">
               <mat-icon>cloud_done</mat-icon>
             </ng-container>
-            <ng-template #uploadText> Upload Video </ng-template>
+            <ng-template #uploadText
+              ><mat-icon>videocam</mat-icon>
+              <span class="text-[0.7rem]">Upload Video</span>
+            </ng-template>
           </label>
         </div>
         <div class="mb-4">
@@ -249,15 +255,15 @@
           </label>
           <div class="text-gray-900 text-sm p-2.5 space-x-2">
             <input
-              name="isPreview"
-              formControlName="isPreview"
+              name="isFreePreview"
+              formControlName="isFreePreview"
               value="true"
               type="radio"
             />
             <label for="">Yes</label>
             <input
-              name="isPreview"
-              formControlName="isPreview"
+              name="isFreePreview"
+              formControlName="isFreePreview"
               value="false"
               type="radio"
             />
@@ -315,7 +321,7 @@
       </div>
     </div>
   </mat-dialog-content>
-  <mat-dialog-actions align="end" class="flex justify-center gap-2">
+  <mat-dialog-actions align="end" class="flex justify-center gap-4">
     <button type="button" mat-raised-button mat-dialog-close>Cancel</button>
     <button type="submit" mat-raised-button cdkFocusInitial>Create</button>
   </mat-dialog-actions>

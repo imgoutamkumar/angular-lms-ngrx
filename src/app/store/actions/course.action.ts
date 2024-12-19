@@ -13,7 +13,7 @@ export interface CourseQueryParams {
 export const loadCourses = createAction(`[Course] Load Course`);
 export const loadCoursesSuccess = createAction(
   '[Course] Load Course Success',
-  props<{ courses: Course[] }>()
+  props<{ courses: Course[] | null }>()
 );
 export const loadCoursesFaliure = createAction(
   '[Course] Load Course Faliure',

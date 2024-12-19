@@ -9,7 +9,10 @@ const authReducer = createReducer(
     console.log('action', action);
     return {
       ...state,
-      data: action.data,
+      user: action.user,
+      isAuthenticated: true,
+      token: action.token,
+      role: action.role,
       isLoading: false,
       error: '',
     };
@@ -17,7 +20,27 @@ const authReducer = createReducer(
   on(AuthActions.loginFailure, (state, action) => {
     return {
       ...state,
-      data: null,
+      user: null,
+      isAuthenticated: false,
+      token: '',
+      isLoading: false,
+      error: action.error,
+    };
+  }),
+  on(AuthActions.logout, (state) => ({ ...state, isLoading: true })),
+  on(AuthActions.logoutSuccess, (state, action) => {
+    console.log('action', action);
+    return {
+      ...state,
+      user: null,
+      isLoading: false,
+      error: '',
+    };
+  }),
+  on(AuthActions.logoutFailure, (state, action) => {
+    return {
+      ...state,
+      user: null,
       isLoading: false,
       error: action.error,
     };

@@ -20,6 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideStore({ Course: CourseReducer, Auth: AuthReducer }),
     provideEffects([CourseEffects, AuthEffects]),
-    provideStoreDevtools(), provideAnimationsAsync(),
+    provideStoreDevtools(),
+    provideAnimationsAsync(),
   ],
 };

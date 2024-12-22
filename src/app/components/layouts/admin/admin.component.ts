@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
-import { AdminHeaderComponent } from '../../admin-header/admin-header.component';
-import { AdminSidebarComponent } from '../../admin-sidebar/admin-sidebar.component';
+import { AdminHeaderComponent } from '../../../components/admin/admin-header/admin-header.component';
+import { AdminSidebarComponent } from '../../../components/admin/admin-sidebar/admin-sidebar.component';
 
 @Component({
   selector: 'app-admin',

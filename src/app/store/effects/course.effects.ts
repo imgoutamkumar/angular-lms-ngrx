@@ -3,12 +3,18 @@ import {
   createCourse,
   createCourseFaliure,
   createCourseSuccess,
+  deleteCourse,
+  deleteCourseFailure,
+  deleteCourseSuccess,
   loadCourseById,
   loadCourseByIdFailure,
   loadCourseByIdSuccess,
   loadCourses,
   loadCoursesFaliure,
   loadCoursesSuccess,
+  updateCourse,
+  updateCourseFailure,
+  updateCourseSuccess,
 } from '../actions/course.action';
 import {
   catchError,
@@ -26,6 +32,8 @@ export class CourseEffects {
   loadCourses$;
   createCourse$;
   loadCourseById$;
+  updateCourse$;
+  deleteCourse$;
   constructor(private action$: Actions, private courseService: CourseService) {
     console.log('Actions injected:', this.action$);
     console.log('CourseService injected:', this.courseService);
@@ -99,35 +107,33 @@ export class CourseEffects {
     ); */
 
     // Update Course
-    /* updateCourse$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CourseActions.updateCourse),
-      mergeMap(({ course }) =>
-        this.courseService.updateCourse(course).pipe(
-          map((updatedCourse) =>
-            CourseActions.updateCourseSuccess({ course: updatedCourse })
-          ),
-          catchError((error) =>
-            of(CourseActions.updateCourseFailure({ error }))
+    this.updateCourse$ = createEffect(() =>
+      this.action$.pipe(
+        ofType(updateCourse),
+        mergeMap(({ id, course }) =>
+          this.courseService.updateCourseById(id, course).pipe(
+            map((updatedCourse) =>
+              updateCourseSuccess({ course: updatedCourse })
+            ),
+            catchError((error) => of(updateCourseFailure({ error })))
           )
         )
       )
-    )
-  ); */
+    );
 
     // Delete Course
-    /* deleteCourse$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(CourseActions.deleteCourse),
-      mergeMap(({ id }) =>
-        this.courseService.deleteCourse(id).pipe(
-          map(() => CourseActions.deleteCourseSuccess({ id })),
-          catchError((error) =>
-            of(CourseActions.deleteCourseFailure({ error }))
+    this.deleteCourse$ = createEffect(() =>
+      this.action$.pipe(
+        ofType(deleteCourse),
+        mergeMap(({ id }) =>
+          this.courseService.deleteCourseById(id).pipe(
+            map(() => deleteCourseSuccess({ id })),
+            catchError((error) =>
+              of(deleteCourseFailure({ error: error.message }))
+            )
           )
         )
       )
-    )
-  ); */
+    );
   }
 }

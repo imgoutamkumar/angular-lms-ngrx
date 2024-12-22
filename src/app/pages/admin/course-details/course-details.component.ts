@@ -16,7 +16,7 @@ import {
   selectIsLoading,
   selectSelectedCourse,
 } from '../../../store/selectors/course.selectors';
-import { Course } from '../../../models/course.models';
+import { Course, Lecture } from '../../../models/course.models';
 import { loadCourseById } from '../../../store/actions/course.action';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -34,7 +34,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class CourseDetailsComponent implements OnInit {
   updateCourseForm: FormGroup;
-
+  demoVideoUrl = signal(
+    'https://res.cloudinary.com/videoapi-demo/video/upload/c_fill,g_auto,ar_2:1,h_192/v1/samples/snowboard_crop_mha2ac'
+  );
   constructor(
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
@@ -53,53 +55,68 @@ export class CourseDetailsComponent implements OnInit {
       welcomeMessage: [''],
       imageUrl: [''],
       lectures: this.formBuilder.array([
-        this.formBuilder.group({
+        /* this.formBuilder.group({
           title: [''],
           isFreePreview: [''],
           videoUrl: [''],
           public_id: [''],
-        }),
+        }), */
       ]),
       coupanCode: [''],
       discount: [''],
     });
   }
 
-  Id: string | null = null;
   isEditing = signal<boolean>(false);
-  //isLoading: boolean = true;
   isLoading = signal<boolean>(false);
-  //courseDetails = signal<Course | null>(null);
-  courseDetails: any;
+  courseDetails = signal<Course | any>({});
   ngOnInit(): void {
-    this.updateCourseForm.disable();
+    if (!this.isEditing()) {
+      this.updateCourseForm.disable();
+      (this.updateCourseForm.get('lectures') as FormArray).disable();
+    }
+
     this.store.dispatch(
       loadCourseById({
         id: String(this.activatedRoute.snapshot.paramMap.get('id')),
       })
     );
 
+    // Use reduce to populate both static fields and the lectures array
     this.store.select(selectSelectedCourse).subscribe({
       next: (result) => {
         if (result) {
-          //this.courseDetails.set(result);
-          this.courseDetails = result;
-          this.updateCourseForm.patchValue(result);
-
-          /*  const lecturesArray = this.updateCourseForm.get(
+          this.courseDetails.set(result);
+          // Clear the existing lectures FormArray
+          const lecturesArray = this.updateCourseForm.get(
             'lectures'
           ) as FormArray;
-          result?.lectures?.forEach((lecture) => {
-            lecturesArray.push(
-              this.formBuilder.group({
-                title: [lecture.title],
-                isFreePreview: [lecture.isFreePreview],
-                videoUrl: [lecture.videoUrl],
-                public_id: [lecture.public_id],
-              })
-            );
-          }); */
-          console.log(this.courseDetails);
+          while (lecturesArray.length) {
+            lecturesArray.removeAt(0); // Remove each control in the array
+          }
+          const populatedForm = (
+            Object.keys(result) as (keyof Course)[]
+          ).reduce((acc, key) => {
+            if (key === 'lectures') {
+              const lecturesArray = this.updateCourseForm.get(
+                'lectures'
+              ) as FormArray;
+              (result[key] as Lecture[]).forEach((lecture: any) => {
+                lecturesArray.push(
+                  this.formBuilder.group({
+                    title: [lecture.title],
+                    isFreePreview: [lecture.isFreePreview],
+                    videoUrl: [lecture.videoUrl],
+                    public_id: [lecture.public_id],
+                  })
+                );
+              });
+            } else {
+              acc[key] = (result as any)[key]; // Use type assertion here
+            }
+            return acc;
+          }, {} as Partial<Course>);
+          this.updateCourseForm.patchValue(populatedForm);
         }
       },
     });
@@ -108,15 +125,11 @@ export class CourseDetailsComponent implements OnInit {
       .select(selectIsLoading)
       .pipe(
         tap((data) => {
-          //this.isLoading = data;
           this.isLoading.set(data);
           console.log(this.isLoading());
         })
       )
       .subscribe();
-
-    this.Id = this.activatedRoute.snapshot.paramMap.get('id');
-    console.log('ID from route:', this.Id);
   }
 
   get lectures() {
@@ -194,6 +207,10 @@ export class CourseDetailsComponent implements OnInit {
     }
 
     console.log('Editing state after set:', this.isEditing()); // Log the current state of isEditing
+  }
+
+  onCancelButtonClick() {
+    this.isEditing.set(false); // Toggle editing state
   }
 
   onSubmit() {

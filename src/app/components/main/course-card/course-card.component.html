@@ -1,0 +1,41 @@
+<div
+  (click)="onCardClick(courseData._id)"
+  class="cursor-pointer relative flex w-[18rem] flex-col overflow-hidden rounded-xl bg-white bg-clip-border text-gray-700 shadow-md"
+>
+  <!-- <div
+    class="relative m-0 overflow-hidden text-gray-700 bg-transparent rounded-none shadow-none bg-clip-border"
+  > -->
+  <img
+    [src]="courseData?.imageUrl"
+    alt="ui/ux review check"
+    class="w-full h-[10rem] object-cover rounded-t-xl"
+  />
+
+  <div class="p-4">
+    <h4
+      class="block truncate font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 m-0"
+    >
+      {{ courseData?.title }}
+    </h4>
+    <p
+      class="text-[1.6rem] text-black m-0 font-semibold block font-sans text-base antialiased leading-relaxed text-inherit"
+    >
+      {{ courseData.price | currency : "INR" }}
+    </p>
+  </div>
+  <div class="flex items-center justify-between px-6 pb-3">
+    <div class="flex items-center">
+      <img
+        alt="natali craig"
+        src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1061&amp;q=80"
+        class="relative inline-block h-9 w-9 rounded-full border-2 border-white object-cover object-center hover:z-10"
+      />
+    </div>
+
+    <p
+      class="block m-0 font-sans text-[0.9rem] antialiased font-normal !leading-5 text-gray-700"
+    >
+      Instructor name
+    </p>
+  </div>
+</div>

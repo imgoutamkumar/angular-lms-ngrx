@@ -1,4 +1,4 @@
-import { Course, CourseModel } from '../../models/course.models';
+import { Course } from '../../models/course.models';
 import { CourseQueryParams } from '../actions/course.action';
 
 export interface CourseState {

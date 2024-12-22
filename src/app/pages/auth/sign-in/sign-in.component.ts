@@ -13,7 +13,7 @@ import {
   selectIsLoading,
   selectRole,
 } from '../../../store/selectors/auth.selectors';
-import { filter, Observable, switchMap, take } from 'rxjs';
+import { filter, Observable, switchMap, take, tap } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
@@ -35,7 +35,17 @@ export class SignInComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
+
+    this.store
+      .select(selectIsLoading)
+      .pipe(
+        tap((data) => {
+          this.isLoading.set(data);
+        })
+      )
+      .subscribe();
   }
+  isLoading = signal<boolean>(false);
 
   onLoginFormSubmit() {
     if (this.loginForm.invalid) {

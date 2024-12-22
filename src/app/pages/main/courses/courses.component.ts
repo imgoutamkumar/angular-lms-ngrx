@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { loadCourses } from '../../../store/actions/course.action';
 import { selectAllCourses } from '../../../store/selectors/course.selectors';
-import { CourseCardComponent } from '../../../components/course-card/course-card.component';
+import { CourseCardComponent } from '../../../components/main/course-card/course-card.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

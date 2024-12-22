@@ -1,0 +1,94 @@
+<div class="bg-black w-full h-full">
+  @if (isLoading()) {
+  <div class="text-white flex justify-center py-[50px] bg-black">
+    <mat-spinner color="primary" diameter="40"></mat-spinner>
+  </div>
+  }@else {
+  <div class="bg-black pb-[1rem]">
+    <div
+      class="relative w-full h-[200px] md:h-[300px] lg:h-[400px] bg-red-200"
+      id="home"
+    >
+      <img
+        [src]="courseDetails().imageUrl"
+        alt="Background Image"
+        class="object-cover object-center w-full h-full"
+      />
+    </div>
+
+    <!-- inspired by tailwindcss.com -->
+    <ul
+      class="grid grid-cols-1 xl:grid-cols-3 gap-y-10 gap-x-6 items-start p-8 bg-[#0b192d]"
+    >
+      @for (lecture of courseDetails().lectures; track $index) {
+      <li class="relative flex flex-col sm:flex-row xl:flex-col items-start">
+        <div class="order-1 sm:ml-6 xl:ml-0">
+          <h6 class="mb-1 text-gray-300 font-semibold whitespace-nowrap">
+            <span class="mb-1 block text-sm leading-6 text-indigo-500"
+              >Lecture {{ $index + 1 }}</span
+            >{{ lecture.title }}
+          </h6>
+          <div class="prose prose-slate prose-sm text-slate-600">
+            <p>
+              Completely unstyled, fully accessible UI components, designed to
+              integrate beautifully with Tailwind CSS.
+            </p>
+          </div>
+        </div>
+        <!-- <img
+          src="https://media.licdn.com/dms/image/v2/D4D12AQEiMjsamplU8Q/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1654087149753?e=2147483647&v=beta&t=VOzorCuHaLsngftkYD6l55ReOEQA-GMdpfAIa8umXkU"
+          alt=""
+          class="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full"
+          width="1216"
+          height="640"
+        /> -->
+        <video
+          muted
+          [src]="lecture.videoUrl"
+          controls
+          class="mb-6 shadow-md rounded-lg bg-slate-50 w-full sm:w-[17rem] sm:mb-0 xl:mb-6 xl:w-full"
+          width="1216"
+          height="640"
+        ></video>
+      </li>
+      }
+    </ul>
+    <h4 class="text-white px-[2rem] my-[2rem]">Comments</h4>
+    <div
+      class="flex items-center self-center w-full max-w-xl p-4 overflow-hidden text-gray-600 focus-within:text-gray-400"
+    >
+      <img
+        class="w-10 h-10 object-cover rounded-full shadow mr-2 cursor-pointer"
+        alt="User avatar"
+        src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
+      />
+
+      <input
+        type="search"
+        class="w-full py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
+        style="border-radius: 25px"
+        placeholder="Post your comment..."
+        autocomplete="off"
+      />
+    </div>
+    <div class="text-black p-4 antialiased flex">
+      <img
+        class="rounded-full h-8 w-8 mr-2 mt-1"
+        src="https://picsum.photos/id/1027/200/200"
+      />
+      <div class="lg:pr-[5rem]">
+        <div class="bg-gray-100 rounded-lg px-4 pt-2 pb-2.5">
+          <div class="font-semibold text-sm leading-relaxed">Sara Lauren</div>
+          <div class="text-xs leading-snug md:leading-normal">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </div>
+        </div>
+        <div class="text-xs mt-0.5 text-gray-500">14 w</div>
+      </div>
+    </div>
+  </div>
+  }
+</div>

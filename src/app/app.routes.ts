@@ -40,6 +40,13 @@ export const routes: Routes = [
             (m) => m.CoursesComponent
           ),
       },
+      {
+        path: 'course/details/:id',
+        loadComponent: () =>
+          import('./pages/main/course-details/course-details.component').then(
+            (m) => m.CourseDetailsComponent
+          ),
+      },
     ],
   },
   {

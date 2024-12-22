@@ -35,16 +35,22 @@ export class CourseService {
     );
   }
 
-  updateProductById(id: number, data: any): Observable<any> {
+  updateCourseById(id: string, data: Course): Observable<any> {
     return this.httpClient.put<any>(
-      `https://bun-lms-restapi.onrender.com/product/${id}`,
+      `https://node-lms-restapi.onrender.com/api/course/update/${id}`,
       data
     );
   }
 
-  deleteProductById(id: number): Observable<any> {
+  deleteCourseById(id: string): Observable<any> {
     return this.httpClient.delete<any>(
-      `https://bun-lms-restapi.onrender.com/courses/${id}`
+      `https://node-lms-restapi.onrender.com/api/course/delete/${id}`
+    );
+  }
+
+  allReviewsByCourseId(id: string): Observable<any> {
+    return this.httpClient.get<any>(
+      `https://node-lms-restapi.onrender.com/api/course/${id}/review`
     );
   }
 }

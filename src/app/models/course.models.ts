@@ -1,4 +1,5 @@
 export interface Course {
+  _id: string;
   title: string;
   category: string;
   level: string;
@@ -9,19 +10,19 @@ export interface Course {
   objectives: string;
   welcomeMessage: string;
   imageUrl: string;
-  lectures: [
-    {
-      title: string;
-      isFreePreview: false;
-      videoUrl: string;
-      public_id: string;
-    }
-  ];
+  lectures: Lecture[];
   coupanCode: string;
   discount: string;
 }
 
-export interface CourseModel {
+export interface Lecture {
+  title: string;
+  isFreePreview: boolean;
+  videoUrl: string;
+  public_id: string;
+}
+
+/* export interface CourseModel {
   list: Course[];
   errorMessage: string;
-}
+} */

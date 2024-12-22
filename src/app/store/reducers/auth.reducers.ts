@@ -33,6 +33,7 @@ const authReducer = createReducer(
     return {
       ...state,
       user: null,
+      isAuthenticated: false,
       isLoading: false,
       error: '',
     };

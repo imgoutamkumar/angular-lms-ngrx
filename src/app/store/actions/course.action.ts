@@ -51,7 +51,7 @@ export const loadCourseByIdFailure = createAction(
 // Update Course
 export const updateCourse = createAction(
   '[Course] Update Course',
-  props<{ course: Course }>()
+  props<{ id: string; course: Course }>()
 );
 export const updateCourseSuccess = createAction(
   '[Course] Update Course Success',
@@ -71,7 +71,7 @@ export const deleteCourseSuccess = createAction(
   '[Course] Delete Course Success',
   props<{ id: string }>()
 );
-export const deleteCourseFaliure = createAction(
+export const deleteCourseFailure = createAction(
   '[Course] Delete Course Faliure',
   props<{ error: string }>()
 );

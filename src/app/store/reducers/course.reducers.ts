@@ -15,6 +15,7 @@ import {
   createCourse,
   loadCourseByIdSuccess,
 } from '../actions/course.action';
+import { Course } from '../../models/course.models';
 
 const courseReducer = createReducer(
   courseInitialState,
@@ -64,21 +65,21 @@ const courseReducer = createReducer(
       isLoading: false,
       error: action.error,
     };
-  })
+  }),
 
   // Update Course
-  /* on(updateCourseSuccess, (state, action) => ({
+  on(updateCourseSuccess, (state, action) => ({
     ...state,
-    courses: state.courses.map((course) =>
-      course.id === action.course.id ? action.course : c
+    courses: state.courses.map((course: Course) =>
+      course._id === action.course._id ? action.course : course
     ),
-  })), */
+  })),
 
   // Delete Course
-  /* on(deleteCourseSuccess, (state, action) => ({
+  on(deleteCourseSuccess, (state, action) => ({
     ...state,
-    courses: state.courses.filter((course) => course.id !== action.id),
-  })) */
+    courses: state.courses.filter((course: Course) => course._id !== action.id),
+  }))
 );
 
 export function CourseReducer(state: any, action: any) {

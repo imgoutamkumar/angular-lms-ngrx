@@ -12,6 +12,8 @@ import {
   loadCourses,
   loadCoursesFaliure,
   loadCoursesSuccess,
+  loadReviewsByCourseIdFailure,
+  loadReviewsByCourseIdSuccess,
   updateCourse,
   updateCourseFailure,
   updateCourseSuccess,
@@ -22,6 +24,7 @@ import {
   map,
   mergeMap,
   switchMap,
+  tap,
 } from 'rxjs/operators';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CourseService } from '../../services/course.service';
@@ -34,6 +37,7 @@ export class CourseEffects {
   loadCourseById$;
   updateCourse$;
   deleteCourse$;
+  allReviewsCourseId$;
   constructor(private action$: Actions, private courseService: CourseService) {
     console.log('Actions injected:', this.action$);
     console.log('CourseService injected:', this.courseService);
@@ -130,6 +134,26 @@ export class CourseEffects {
             map(() => deleteCourseSuccess({ id })),
             catchError((error) =>
               of(deleteCourseFailure({ error: error.message }))
+            )
+          )
+        )
+      )
+    );
+
+    // All Reviews By Course ID
+    this.allReviewsCourseId$ = createEffect(() =>
+      this.action$.pipe(
+        ofType(loadCourseByIdSuccess),
+        tap((action) => {
+          console.log('on loadCourseBYIdSuccess', action);
+        }),
+        mergeMap((action) =>
+          this.courseService.allReviewsByCourseId(action.course._id).pipe(
+            map((resData) =>
+              loadReviewsByCourseIdSuccess({ reviews: resData })
+            ),
+            catchError((error) =>
+              of(loadReviewsByCourseIdFailure({ error: error.message }))
             )
           )
         )

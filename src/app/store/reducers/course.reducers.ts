@@ -8,6 +8,8 @@ import {
   loadCourses,
   loadCoursesFaliure,
   loadCoursesSuccess,
+  loadReviewsByCourseIdFailure,
+  loadReviewsByCourseIdSuccess,
   updateCourseSuccess,
 } from '../actions/course.action';
 import {
@@ -79,6 +81,14 @@ const courseReducer = createReducer(
   on(deleteCourseSuccess, (state, action) => ({
     ...state,
     courses: state.courses.filter((course: Course) => course._id !== action.id),
+  })),
+  on(loadReviewsByCourseIdSuccess, (state, action) => ({
+    ...state,
+    selectedCourseReviews: action.reviews,
+  })),
+  on(loadReviewsByCourseIdFailure, (state, action) => ({
+    ...state,
+    error: action.error,
   }))
 );
 

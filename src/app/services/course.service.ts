@@ -50,7 +50,10 @@ export class CourseService {
 
   allReviewsByCourseId(id: string): Observable<any> {
     return this.httpClient.get<any>(
-      `https://node-lms-restapi.onrender.com/api/course/${id}/review`
+      `https://node-lms-restapi.onrender.com/api/course/${id}/reviews`,
+      {
+        withCredentials: true, // Ensure cookies are sent with the request
+      }
     );
   }
 }

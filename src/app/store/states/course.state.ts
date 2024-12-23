@@ -4,6 +4,7 @@ import { CourseQueryParams } from '../actions/course.action';
 export interface CourseState {
   courses: Course[] | any;
   selectedCourse: Course | null;
+  selectedCourseReviews: any;
   isLoading: boolean;
   error: any;
   queryParams: CourseQueryParams;
@@ -13,6 +14,7 @@ export interface CourseState {
 export const courseInitialState: CourseState = {
   courses: [],
   selectedCourse: null,
+  selectedCourseReviews: [],
   isLoading: false,
   error: null,
   queryParams: { search: '', filter: '', page: 1, limit: 10 },

@@ -75,3 +75,14 @@ export const deleteCourseFailure = createAction(
   '[Course] Delete Course Faliure',
   props<{ error: string }>()
 );
+
+// Load reviews
+export const loadReviewsByCourseIdSuccess = createAction(
+  '[Course] Load Reviews By Course ID Success',
+  props<{ reviews: any }>()
+);
+
+export const loadReviewsByCourseIdFailure = createAction(
+  '[Course] Load Reviews By Course ID Failure',
+  props<{ error: any }>()
+);

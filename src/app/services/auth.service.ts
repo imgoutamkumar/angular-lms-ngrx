@@ -11,7 +11,10 @@ export class AuthService {
   login(data: any): Observable<any> {
     return this.httpClient.post<any>(
       `https://node-lms-restapi.onrender.com/api/auth/login`,
-      data
+      data,
+      {
+        withCredentials: true, // Include cookies with the request
+      }
     );
   }
 

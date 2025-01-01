@@ -16,7 +16,7 @@ export class AuthEffects {
   login$;
   setSessionOnLoginSuccess$;
   logout$;
-  logoutSuccess$;
+  //logoutSuccess$;
   constructor(private action$: Actions, private authService: AuthService) {
     console.log('Actions injected:', this.action$);
     console.log('CourseService injected:', this.authService);
@@ -78,6 +78,9 @@ export class AuthEffects {
           switchMap(() => {
             return this.authService.logout().pipe(
               map((resData: any) => {
+                console.log('Clearing session storage...');
+                sessionStorage.removeItem('role');
+                sessionStorage.removeItem('token');
                 return AuthActions.logoutSuccess({ message: resData.message });
               }),
               catchError((error) =>
@@ -93,7 +96,7 @@ export class AuthEffects {
       //{ dispatch: false }
     );
 
-    this.logoutSuccess$ = createEffect(
+    /*  this.logoutSuccess$ = createEffect(
       () =>
         this.action$.pipe(
           ofType(AuthActions.logoutSuccess),
@@ -103,7 +106,7 @@ export class AuthEffects {
             sessionStorage.removeItem('token');
           })
         ),
-      { dispatch: false } // No further actions dispatched
-    );
+      { dispatch: false } 
+    ); */
   }
 }

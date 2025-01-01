@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, Pipe } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateCourseComponent } from '../../../components/dialogs/create-course/create-course.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -16,6 +16,7 @@ import {
 } from '../../../store/actions/course.action';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-course-list',
@@ -35,6 +36,10 @@ import { Router } from '@angular/router';
 })
 export class CourseListComponent {
   courses$ = signal<Array<Course>>([]);
+  searchTerm = signal('');
+  courseList = signal<any>([]);
+  searchSubject: Subject<string> = new Subject();
+
   constructor(
     private courseService: CourseService,
     private store: Store,
@@ -45,11 +50,6 @@ export class CourseListComponent {
       this.courses$.set(courses);
     });
   }
-
-  ngOnInit(): void {}
-
-  searchTerm = signal('');
-  courseList = signal<any>([]);
 
   readonly dialog = inject(MatDialog);
 
@@ -62,6 +62,23 @@ export class CourseListComponent {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  ngOnInit(): void {
+    this.searchSubject
+      .pipe(
+        debounceTime(300),
+        distinctUntilChanged() // emit only if value chnages
+      )
+      .subscribe((data) => {
+        console.log(data);
+        this.searchTerm.set(data);
+      });
+  }
+
+  onSearch(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.searchSubject.next(value);
   }
 
   onClickViewButton(id: string) {

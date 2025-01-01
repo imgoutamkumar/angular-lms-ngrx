@@ -1,7 +1,21 @@
-<div class="w-full flex flex-grow bg-black h-full">
+<div class="w-full flex flex-col flex-grow bg-black h-full">
+  <div class="my-4 mx-auto">
+    <input
+      #search
+      (input)="onSearch(search.value)"
+      type="search"
+      class="w-[300px] md:w-[450px] py-2 pl-4 pr-10 text-sm bg-gray-100 border border-transparent appearance-none rounded-tg placeholder-gray-400"
+      style="border-radius: 25px"
+      placeholder="search courses..."
+      autocomplete="off"
+    />
+  </div>
   <div class="flex flex-wrap gap-6 justify-center py-6 max-w-7xl mx-auto px-2">
     <app-course-card
-      *ngFor="let course of courses$ | async; let i = index"
+      *ngFor="
+        let course of courses$ | async | filterCourses : searchTerm();
+        let i = index
+      "
       [courseData]="course"
     >
     </app-course-card>

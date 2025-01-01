@@ -3,273 +3,274 @@
   <mat-spinner color="primary" diameter="40"></mat-spinner>
 </div>
 }@else {
-<div class="max-w-5xl mx-auto px-4 pt-4 pb-12 flex flex-col flex-grow">
-  <div [ngClass]="['flex', 'justify-between', 'items-center']">
-    @if (isEditing()) {
-    <h3 mat-dialog-title class="text-white">Update Details</h3>
-
-    }@else {
-    <h3 mat-dialog-title class="text-white">Course Details</h3>
-    <button type="button" mat-raised-button (click)="onEditButtonClicked()">
-      <mat-icon>border_color</mat-icon> Edit Details
-    </button>
-    }
-  </div>
-
-  <form [formGroup]="updateCourseForm" (ngSubmit)="onSubmit()">
-    <div class="relative mb-6 flex justify-center">
-      <img
-        class="h-[200px] lg:h-[380px] w-full object-cover"
-        [ngClass]="isEditing() ? 'blur-[2px] opacity-70' : 'blur-none'"
-        [src]="courseDetails().imageUrl"
-        alt=""
-      />
+<div class="bg-black">
+  <div class="max-w-5xl mx-auto px-4 pt-4 pb-12 flex flex-col flex-grow">
+    <div [ngClass]="['flex', 'justify-between', 'items-center']">
       @if (isEditing()) {
-      <input
-        type="file"
-        id="imageUrl"
-        name="imageUrl"
-        (change)="onSelectCourseImage($event)"
-        accept="image/*"
-        class="hidden"
-      />
-      <label
-        for="imageUrl"
-        class="absolute top-0 left-0 right-0 bottom-0 m-auto w-[150px] flex justify-center items-center bg-gray-800 hover:bg-gray-900 text-white font-medium h-[40px] px-4 rounded-lg cursor-pointer text-center"
-      >
-        <ng-container *ngIf="selectedVideo; else uploadText">
-          <mat-icon>cloud_done</mat-icon>
-        </ng-container>
-        <ng-template #uploadText>
-          <mat-icon>image</mat-icon>
-          <span class="text-[0.7rem]"> Upload Image</span>
-        </ng-template>
-      </label>
+      <h3 mat-dialog-title class="text-white">Update Details</h3>
+
+      }@else {
+      <h3 mat-dialog-title class="text-white">Course Details</h3>
+      <button type="button" mat-raised-button (click)="onEditButtonClicked()">
+        <mat-icon>border_color</mat-icon> Edit Details
+      </button>
       }
     </div>
-    <img ngop alt="" />
-    <div class="grid gap-6 mb-6 lg:grid-cols-2">
-      <div>
-        <label
-          htmlFor="title"
-          class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-        >
-          Title
-        </label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          formControlName="title"
-          [ngClass]="[
-            isEditing() ? 'bg-gray-50' : 'bg-gray-900',
-            'border',
-            'border-gray-300',
-            isEditing() ? 'text-gray-900' : 'text-gray-200',
 
-            'text-sm',
-            'rounded-lg',
-            'focus:ring-blue-500',
-            'focus:border-blue-500',
-            'block',
-            'w-full',
-            'p-2.5',
-            'dark:bg-gray-700',
-            'dark:border-gray-600',
-            'dark:placeholder-gray-400',
-            'dark:text-white',
-            'dark:focus:ring-blue-500',
-            'dark:focus:border-blue-500'
-          ]"
-          placeholder="enter title"
+    <form [formGroup]="updateCourseForm" (ngSubmit)="onSubmit()">
+      <div class="relative mb-6 flex justify-center">
+        <img
+          class="h-[200px] lg:h-[380px] w-full object-cover"
+          [ngClass]="isEditing() ? 'blur-[2px] opacity-70' : 'blur-none'"
+          [src]="courseDetails().imageUrl"
+          alt=""
         />
-      </div>
-      <div>
-        <label
-          htmlFor="category"
-          class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-        >
-          Category
-        </label>
+        @if (isEditing()) {
         <input
-          type="text"
-          id="category"
-          name="category"
-          formControlName="category"
-          [ngClass]="[
-            isEditing() ? 'bg-gray-50' : 'bg-gray-900',
-            'border',
-            'border-gray-300',
-            isEditing() ? 'text-gray-900' : 'text-gray-200',
-
-            'text-sm',
-            'rounded-lg',
-            'focus:ring-blue-500',
-            'focus:border-blue-500',
-            'block',
-            'w-full',
-            'p-2.5',
-            'dark:bg-gray-700',
-            'dark:border-gray-600',
-            'dark:placeholder-gray-400',
-            'dark:text-white',
-            'dark:focus:ring-blue-500',
-            'dark:focus:border-blue-500'
-          ]"
-          placeholder="select category"
+          type="file"
+          id="imageUrl"
+          name="imageUrl"
+          (change)="onSelectCourseImage($event)"
+          accept="image/*"
+          class="hidden"
         />
-      </div>
-      <div>
         <label
-          htmlFor="price"
-          class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+          for="imageUrl"
+          class="absolute border border-white top-0 left-0 right-0 bottom-0 m-auto w-[150px] flex justify-center items-center bg-gray-800 hover:bg-gray-900 text-white font-medium h-[40px] px-4 rounded-lg cursor-pointer text-center"
         >
-          Price
+          <ng-container *ngIf="selectedVideo; else uploadText">
+            <mat-icon>cloud_done</mat-icon>
+          </ng-container>
+          <ng-template #uploadText>
+            <mat-icon>image</mat-icon>
+            <span class="text-[0.7rem]"> Upload Image</span>
+          </ng-template>
         </label>
-        <input
-          type="number"
-          id="price"
-          name="price"
-          formControlName="price"
-          [ngClass]="[
-            isEditing() ? 'bg-gray-50' : 'bg-gray-900',
-            'border',
-            'border-gray-300',
-            isEditing() ? 'text-gray-900' : 'text-gray-200',
-
-            'text-sm',
-            'rounded-lg',
-            'focus:ring-blue-500',
-            'focus:border-blue-500',
-            'block',
-            'w-full',
-            'p-2.5',
-            'dark:bg-gray-700',
-            'dark:border-gray-600',
-            'dark:placeholder-gray-400',
-            'dark:text-white',
-            'dark:focus:ring-blue-500',
-            'dark:focus:border-blue-500'
-          ]"
-          placeholder="enter price"
-        />
+        }
       </div>
+      <img ngop alt="" />
+      <div class="grid gap-6 mb-6 lg:grid-cols-2">
+        <div>
+          <label
+            htmlFor="title"
+            class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+          >
+            Title
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            formControlName="title"
+            [ngClass]="[
+              isEditing() ? 'bg-gray-50' : 'bg-gray-900',
+              'border',
+              'border-gray-300',
+              isEditing() ? 'text-gray-900' : 'text-gray-200',
 
-      <div>
-        <label
-          htmlFor="primaryLanguage"
-          class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-        >
-          primary Language
-        </label>
-        <select
-          id="primaryLanguage"
-          name="primaryLanguage"
-          formControlName="primaryLanguage"
-          defaultValue=""
-          [ngClass]="[
-            isEditing() ? 'bg-gray-50' : 'bg-gray-900',
-            'border',
-            'border-gray-300',
-            isEditing() ? 'text-gray-900' : 'text-gray-200',
+              'text-sm',
+              'rounded-lg',
+              'focus:ring-blue-500',
+              'focus:border-blue-500',
+              'block',
+              'w-full',
+              'p-2.5',
+              'dark:bg-gray-700',
+              'dark:border-gray-600',
+              'dark:placeholder-gray-400',
+              'dark:text-white',
+              'dark:focus:ring-blue-500',
+              'dark:focus:border-blue-500'
+            ]"
+            placeholder="enter title"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="category"
+            class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+          >
+            Category
+          </label>
+          <input
+            type="text"
+            id="category"
+            name="category"
+            formControlName="category"
+            [ngClass]="[
+              isEditing() ? 'bg-gray-50' : 'bg-gray-900',
+              'border',
+              'border-gray-300',
+              isEditing() ? 'text-gray-900' : 'text-gray-200',
 
-            'text-sm',
-            'rounded-lg',
-            'focus:ring-blue-500',
-            'focus:border-blue-500',
-            'block',
-            'w-full',
-            'p-2.5',
-            'dark:bg-gray-700',
-            'dark:border-gray-600',
-            'dark:placeholder-gray-400',
-            'dark:text-white',
-            'dark:focus:ring-blue-500',
-            'dark:focus:border-blue-500'
-          ]"
-        >
-          <option value="" disabled>Select Language</option>
-          <option value="Hindi">Hindi</option>
-          <option value="English">English</option>
-          <option value="Italian">Italian</option>
-        </select>
-      </div>
-      <div>
-        <label
-          htmlFor="subtitle"
-          class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-        >
-          Subtitle
-        </label>
-        <input
-          type="text"
-          id="subtitle"
-          name="subtitle"
-          formControlName="subtitle"
-          [ngClass]="[
-            isEditing() ? 'bg-gray-50' : 'bg-gray-900',
-            'border',
-            'border-gray-300',
-            isEditing() ? 'text-gray-900' : 'text-gray-200',
+              'text-sm',
+              'rounded-lg',
+              'focus:ring-blue-500',
+              'focus:border-blue-500',
+              'block',
+              'w-full',
+              'p-2.5',
+              'dark:bg-gray-700',
+              'dark:border-gray-600',
+              'dark:placeholder-gray-400',
+              'dark:text-white',
+              'dark:focus:ring-blue-500',
+              'dark:focus:border-blue-500'
+            ]"
+            placeholder="select category"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="price"
+            class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+          >
+            Price
+          </label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            formControlName="price"
+            [ngClass]="[
+              isEditing() ? 'bg-gray-50' : 'bg-gray-900',
+              'border',
+              'border-gray-300',
+              isEditing() ? 'text-gray-900' : 'text-gray-200',
 
-            'text-sm',
-            'rounded-lg',
-            'focus:ring-blue-500',
-            'focus:border-blue-500',
-            'block',
-            'w-full',
-            'p-2.5',
-            'dark:bg-gray-700',
-            'dark:border-gray-600',
-            'dark:placeholder-gray-400',
-            'dark:text-white',
-            'dark:focus:ring-blue-500',
-            'dark:focus:border-blue-500'
-          ]"
-          placeholder="enter subtitle"
-        />
-      </div>
-      <div>
-        <label
-          htmlFor="level"
-          class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-        >
-          Level
-        </label>
-        <select
-          id="level"
-          name="level"
-          formControlName="level"
-          defaultValue=""
-          [ngClass]="[
-            isEditing() ? 'bg-gray-50' : 'bg-gray-900',
-            'border',
-            'border-gray-300',
-            isEditing() ? 'text-gray-900' : 'text-gray-200',
+              'text-sm',
+              'rounded-lg',
+              'focus:ring-blue-500',
+              'focus:border-blue-500',
+              'block',
+              'w-full',
+              'p-2.5',
+              'dark:bg-gray-700',
+              'dark:border-gray-600',
+              'dark:placeholder-gray-400',
+              'dark:text-white',
+              'dark:focus:ring-blue-500',
+              'dark:focus:border-blue-500'
+            ]"
+            placeholder="enter price"
+          />
+        </div>
 
-            'text-sm',
-            'rounded-lg',
-            'focus:ring-blue-500',
-            'focus:border-blue-500',
-            'block',
-            'w-full',
-            'p-2.5',
-            'dark:bg-gray-700',
-            'dark:border-gray-600',
-            'dark:placeholder-gray-400',
-            'dark:text-white',
-            'dark:focus:ring-blue-500',
-            'dark:focus:border-blue-500'
-          ]"
-        >
-          <option value="" disabled>Select Level</option>
-          <option value="Easy">Easy</option>
-          <option value="Medium">Medium</option>
-          <option value="Hard">Hard</option>
-        </select>
-      </div>
+        <div>
+          <label
+            htmlFor="primaryLanguage"
+            class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+          >
+            primary Language
+          </label>
+          <select
+            id="primaryLanguage"
+            name="primaryLanguage"
+            formControlName="primaryLanguage"
+            defaultValue=""
+            [ngClass]="[
+              isEditing() ? 'bg-gray-50' : 'bg-gray-900',
+              'border',
+              'border-gray-300',
+              isEditing() ? 'text-gray-900' : 'text-gray-200',
 
-      <!-- <div>
+              'text-sm',
+              'rounded-lg',
+              'focus:ring-blue-500',
+              'focus:border-blue-500',
+              'block',
+              'w-full',
+              'p-2.5',
+              'dark:bg-gray-700',
+              'dark:border-gray-600',
+              'dark:placeholder-gray-400',
+              'dark:text-white',
+              'dark:focus:ring-blue-500',
+              'dark:focus:border-blue-500'
+            ]"
+          >
+            <option value="" disabled>Select Language</option>
+            <option value="Hindi">Hindi</option>
+            <option value="English">English</option>
+            <option value="Italian">Italian</option>
+          </select>
+        </div>
+        <div>
+          <label
+            htmlFor="subtitle"
+            class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+          >
+            Subtitle
+          </label>
+          <input
+            type="text"
+            id="subtitle"
+            name="subtitle"
+            formControlName="subtitle"
+            [ngClass]="[
+              isEditing() ? 'bg-gray-50' : 'bg-gray-900',
+              'border',
+              'border-gray-300',
+              isEditing() ? 'text-gray-900' : 'text-gray-200',
+
+              'text-sm',
+              'rounded-lg',
+              'focus:ring-blue-500',
+              'focus:border-blue-500',
+              'block',
+              'w-full',
+              'p-2.5',
+              'dark:bg-gray-700',
+              'dark:border-gray-600',
+              'dark:placeholder-gray-400',
+              'dark:text-white',
+              'dark:focus:ring-blue-500',
+              'dark:focus:border-blue-500'
+            ]"
+            placeholder="enter subtitle"
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="level"
+            class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+          >
+            Level
+          </label>
+          <select
+            id="level"
+            name="level"
+            formControlName="level"
+            defaultValue=""
+            [ngClass]="[
+              isEditing() ? 'bg-gray-50' : 'bg-gray-900',
+              'border',
+              'border-gray-300',
+              isEditing() ? 'text-gray-900' : 'text-gray-200',
+
+              'text-sm',
+              'rounded-lg',
+              'focus:ring-blue-500',
+              'focus:border-blue-500',
+              'block',
+              'w-full',
+              'p-2.5',
+              'dark:bg-gray-700',
+              'dark:border-gray-600',
+              'dark:placeholder-gray-400',
+              'dark:text-white',
+              'dark:focus:ring-blue-500',
+              'dark:focus:border-blue-500'
+            ]"
+          >
+            <option value="" disabled>Select Level</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+
+        <!-- <div>
         <label
           htmlFor="image"
           class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
@@ -297,270 +298,19 @@
           </ng-template>
         </label>
       </div> -->
-    </div>
-    <div class="mb-6">
-      <label
-        htmlFor="welcomeMessage"
-        class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-      >
-        Welcome Message
-      </label>
-      <input
-        type="text"
-        id="welcomeMessage"
-        name="welcomeMessage"
-        formControlName="welcomeMessage"
-        [ngClass]="[
-          isEditing() ? 'bg-gray-50' : 'bg-gray-900',
-          'border',
-          'border-gray-300',
-          isEditing() ? 'text-gray-900' : 'text-gray-200',
-
-          'text-sm',
-          'rounded-lg',
-          'focus:ring-blue-500',
-          'focus:border-blue-500',
-          'block',
-          'w-full',
-          'p-2.5',
-          'dark:bg-gray-700',
-          'dark:border-gray-600',
-          'dark:placeholder-gray-400',
-          'dark:text-white',
-          'dark:focus:ring-blue-500',
-          'dark:focus:border-blue-500'
-        ]"
-        placeholder="write welcome message..."
-      />
-    </div>
-    <div class="mb-6">
-      <label
-        htmlFor="objectives"
-        class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-      >
-        Objectives
-      </label>
-      <textarea
-        type="text"
-        id="objectives"
-        name="objectives"
-        formControlName="objectives"
-        [ngClass]="[
-          isEditing() ? 'bg-gray-50' : 'bg-gray-900',
-          'border',
-          'border-gray-300',
-          isEditing() ? 'text-gray-900' : 'text-gray-200',
-
-          'text-sm',
-          'rounded-lg',
-          'focus:ring-blue-500',
-          'focus:border-blue-500',
-          'block',
-          'w-full',
-          'p-2.5',
-          'dark:bg-gray-700',
-          'dark:border-gray-600',
-          'dark:placeholder-gray-400',
-          'dark:text-white',
-          'dark:focus:ring-blue-500',
-          'dark:focus:border-blue-500'
-        ]"
-        placeholder="write course objectives here..."
-      ></textarea>
-    </div>
-    <div class="mb-6">
-      <label
-        htmlFor="description"
-        class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-      >
-        Description
-      </label>
-      <textarea
-        type="text"
-        id="description"
-        name="description"
-        formControlName="description"
-        [ngClass]="[
-          isEditing() ? 'bg-gray-50' : 'bg-gray-900',
-          'border',
-          'border-gray-300',
-          isEditing() ? 'text-gray-900' : 'text-gray-200',
-
-          'text-sm',
-          'rounded-lg',
-          'focus:ring-blue-500',
-          'focus:border-blue-500',
-          'block',
-          'w-full',
-          'p-2.5',
-          'dark:bg-gray-700',
-          'dark:border-gray-600',
-          'dark:placeholder-gray-400',
-          'dark:text-white',
-          'dark:focus:ring-blue-500',
-          'dark:focus:border-blue-500'
-        ]"
-        placeholder="write course description here..."
-      ></textarea>
-    </div>
-
-    <h5 class="text-white">Lectures</h5>
-    <div formArrayName="lectures">
-      @for (lecture of lectures.controls; track $index) {
-      <div class="flex justify-between items-center">
-        <p class="text-white">Lecture {{ $index + 1 }}</p>
-        @if (isEditing()) {
-        <button
-          mat-stroked-button
-          color="primary"
-          class="w-[25px] h-[25px] flex justify-center items-center hover:border-white"
-          (click)="removeLecture($index)"
-          type="button"
-        >
-          <mat-icon class="m-0">close</mat-icon>
-        </button>
-        }
       </div>
-      <div [formGroupName]="$index">
-        <div class="grid gap-6 mb-2 lg:grid-cols-4">
-          <div class="mb-4 col-span-2">
-            <label
-              htmlFor="title-{{ $index }}"
-              class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-            >
-              Lecture Title
-            </label>
-            <input
-              type="text"
-              id="title-{{ $index }}"
-              name="title-{{ $index }}"
-              formControlName="title"
-              [ngClass]="[
-                isEditing() ? 'bg-gray-50' : 'bg-gray-900',
-                'border',
-                'border-gray-300',
-                isEditing() ? 'text-gray-900' : 'text-gray-200',
-
-                'text-sm',
-                'rounded-lg',
-                'focus:ring-blue-500',
-                'focus:border-blue-500',
-                'block',
-                'w-full',
-                'p-2.5',
-                'dark:bg-gray-700',
-                'dark:border-gray-600',
-                'dark:placeholder-gray-400',
-                'dark:text-white',
-                'dark:focus:ring-blue-500',
-                'dark:focus:border-blue-500'
-              ]"
-              placeholder="enter title"
-            />
-          </div>
-          @if (isEditing()) {
-          <div class="mb-4">
-            <label
-              htmlFor="uploadVideo-{{ $index }}"
-              class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-            >
-              Upload Video
-            </label>
-            <input
-              type="file"
-              id="videoUrl-{{ $index }}"
-              name="videoUrl-{{ $index }}"
-              (change)="onSelecteLectureVideo($event, $index)"
-              class="hidden"
-              accept="video/*"
-            />
-            <label
-              for="videoUrl-{{ $index }}"
-              class="flex justify-center items-center bg-gray-800 hover:bg-gray-900 text-white font-medium h-[40px] px-4 rounded-lg cursor-pointer text-center"
-            >
-              <ng-container *ngIf="selectedVideo; else uploadText">
-                <mat-icon>cloud_done</mat-icon>
-              </ng-container>
-              <ng-template #uploadText
-                ><mat-icon>videocam</mat-icon>
-                <span class="text-[0.7rem]">Upload Video</span>
-              </ng-template>
-            </label>
-          </div>
-          }
-
-          <div class="mb-4">
-            <label
-              class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
-            >
-              Free Preview
-            </label>
-            <div
-              class="text-gray-900 text-sm p-2.5 space-x-2 flex items-center"
-            >
-              <input
-                id="isFreePreview-yes-{{ $index }}"
-                formControlName="isFreePreview"
-                [value]="true"
-                type="radio"
-                [ngClass]="[
-                  'h-[1.2rem]',
-                  'w-[1.2rem]',
-                  'disabled:text-gray-200'
-                ]"
-              />
-              <label for="isFreePreview-yes-{{ $index }}" class="text-white"
-                >Yes</label
-              >
-              <input
-                id="isFreePreview-no-{{ $index }}"
-                formControlName="isFreePreview"
-                [value]="false"
-                type="radio"
-                class="h-[1.2rem] w-[1.2rem]"
-              />
-              <label for="isFreePreview-no-{{ $index }}" class="text-white"
-                >No</label
-              >
-            </div>
-          </div>
-        </div>
-        <div class="grid gap-6 mb-2 lg:w-[50%]">
-          <video class="w-full aspect-[2/1]" controls>
-            <source [src]="demoVideoUrl()" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div>
-      }
-    </div>
-    @if (isEditing()) {
-    <div class="flex justify-end items-center">
-      <button
-        type="button"
-        mat-raised-button
-        class="h-[30px] flex items-center"
-        (click)="addLecture()"
-      >
-        <mat-icon>add</mat-icon> Add Lecture
-      </button>
-    </div>
-    }
-
-    <h5 class="text-white">Other Info</h5>
-    <div class="grid gap-6 mb-6 lg:grid-cols-2">
       <div class="mb-6">
         <label
-          htmlFor="coupanCode"
+          htmlFor="welcomeMessage"
           class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
         >
-          Coupan Code
+          Welcome Message
         </label>
         <input
           type="text"
-          id="coupanCode"
-          name="coupanCode"
-          formControlName="coupanCode"
+          id="welcomeMessage"
+          name="welcomeMessage"
+          formControlName="welcomeMessage"
           [ngClass]="[
             isEditing() ? 'bg-gray-50' : 'bg-gray-900',
             'border',
@@ -581,21 +331,21 @@
             'dark:focus:ring-blue-500',
             'dark:focus:border-blue-500'
           ]"
-          placeholder="enter coupan code"
+          placeholder="write welcome message..."
         />
       </div>
       <div class="mb-6">
         <label
-          htmlFor="discount"
+          htmlFor="objectives"
           class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
         >
-          Discount
+          Objectives
         </label>
-        <input
-          type="number"
-          id="discount"
-          name="discount"
-          formControlName="discount"
+        <textarea
+          type="text"
+          id="objectives"
+          name="objectives"
+          formControlName="objectives"
           [ngClass]="[
             isEditing() ? 'bg-gray-50' : 'bg-gray-900',
             'border',
@@ -616,24 +366,275 @@
             'dark:focus:ring-blue-500',
             'dark:focus:border-blue-500'
           ]"
-          placeholder="enter discount percent"
-        />
+          placeholder="write course objectives here..."
+        ></textarea>
       </div>
-    </div>
-    @if(isEditing()){
-    <div class="flex justify-center gap-6">
-      <button
-        type="button"
-        mat-raised-button
-        mat-dialog-close
-        (click)="onCancelButtonClick()"
-      >
-        Cancel
-      </button>
-      <button type="submit" mat-raised-button cdkFocusInitial>Update</button>
-    </div>
-    }
-  </form>
-</div>
+      <div class="mb-6">
+        <label
+          htmlFor="description"
+          class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+        >
+          Description
+        </label>
+        <textarea
+          type="text"
+          id="description"
+          name="description"
+          formControlName="description"
+          [ngClass]="[
+            isEditing() ? 'bg-gray-50' : 'bg-gray-900',
+            'border',
+            'border-gray-300',
+            isEditing() ? 'text-gray-900' : 'text-gray-200',
 
+            'text-sm',
+            'rounded-lg',
+            'focus:ring-blue-500',
+            'focus:border-blue-500',
+            'block',
+            'w-full',
+            'p-2.5',
+            'dark:bg-gray-700',
+            'dark:border-gray-600',
+            'dark:placeholder-gray-400',
+            'dark:text-white',
+            'dark:focus:ring-blue-500',
+            'dark:focus:border-blue-500'
+          ]"
+          placeholder="write course description here..."
+        ></textarea>
+      </div>
+
+      <h5 class="text-white">Lectures</h5>
+      <div formArrayName="lectures">
+        @for (lecture of lectures.controls; track $index) {
+        <div class="flex justify-between items-center">
+          <p class="text-white">Lecture {{ $index + 1 }}</p>
+          @if (isEditing()) {
+          <button
+            mat-stroked-button
+            color="primary"
+            class="w-[25px] h-[25px] flex justify-center items-center hover:border-white"
+            (click)="removeLecture($index)"
+            type="button"
+          >
+            <mat-icon class="m-0">close</mat-icon>
+          </button>
+          }
+        </div>
+        <div [formGroupName]="$index">
+          <div class="grid gap-6 mb-2 lg:grid-cols-4">
+            <div class="mb-4 col-span-2">
+              <label
+                htmlFor="title-{{ $index }}"
+                class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+              >
+                Lecture Title
+              </label>
+              <input
+                type="text"
+                id="title-{{ $index }}"
+                name="title-{{ $index }}"
+                formControlName="title"
+                [ngClass]="[
+                  isEditing() ? 'bg-gray-50' : 'bg-gray-900',
+                  'border',
+                  'border-gray-300',
+                  isEditing() ? 'text-gray-900' : 'text-gray-200',
+
+                  'text-sm',
+                  'rounded-lg',
+                  'focus:ring-blue-500',
+                  'focus:border-blue-500',
+                  'block',
+                  'w-full',
+                  'p-2.5',
+                  'dark:bg-gray-700',
+                  'dark:border-gray-600',
+                  'dark:placeholder-gray-400',
+                  'dark:text-white',
+                  'dark:focus:ring-blue-500',
+                  'dark:focus:border-blue-500'
+                ]"
+                placeholder="enter title"
+              />
+            </div>
+            @if (isEditing()) {
+            <div class="mb-4">
+              <label
+                htmlFor="uploadVideo-{{ $index }}"
+                class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+              >
+                Upload Video
+              </label>
+              <input
+                type="file"
+                id="videoUrl-{{ $index }}"
+                name="videoUrl-{{ $index }}"
+                (change)="onSelecteLectureVideo($event, $index)"
+                class="hidden"
+                accept="video/*"
+              />
+              <label
+                for="videoUrl-{{ $index }}"
+                class="flex justify-center items-center bg-gray-800 hover:bg-gray-900 text-white font-medium h-[40px] px-4 rounded-lg cursor-pointer text-center"
+              >
+                <ng-container *ngIf="selectedVideo; else uploadText">
+                  <mat-icon>cloud_done</mat-icon>
+                </ng-container>
+                <ng-template #uploadText
+                  ><mat-icon>videocam</mat-icon>
+                  <span class="text-[0.7rem]">Upload Video</span>
+                </ng-template>
+              </label>
+            </div>
+            }
+
+            <div class="mb-4">
+              <label
+                class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+              >
+                Free Preview
+              </label>
+              <div
+                class="text-gray-900 text-sm p-2.5 space-x-2 flex items-center"
+              >
+                <input
+                  id="isFreePreview-yes-{{ $index }}"
+                  formControlName="isFreePreview"
+                  [value]="true"
+                  type="radio"
+                  [ngClass]="[
+                    'h-[1.2rem]',
+                    'w-[1.2rem]',
+                    'disabled:text-gray-200'
+                  ]"
+                />
+                <label for="isFreePreview-yes-{{ $index }}" class="text-white"
+                  >Yes</label
+                >
+                <input
+                  id="isFreePreview-no-{{ $index }}"
+                  formControlName="isFreePreview"
+                  [value]="false"
+                  type="radio"
+                  class="h-[1.2rem] w-[1.2rem]"
+                />
+                <label for="isFreePreview-no-{{ $index }}" class="text-white"
+                  >No</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="grid gap-6 mb-2 lg:w-[50%]">
+            <video class="w-full aspect-[2/1]" controls>
+              <source [src]="demoVideoUrl()" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+        }
+      </div>
+      @if (isEditing()) {
+      <div class="flex justify-end items-center">
+        <button
+          type="button"
+          mat-raised-button
+          class="h-[30px] flex items-center"
+          (click)="addLecture()"
+        >
+          <mat-icon>add</mat-icon> Add Lecture
+        </button>
+      </div>
+      }
+
+      <h5 class="text-white">Other Info</h5>
+      <div class="grid gap-6 mb-6 lg:grid-cols-2">
+        <div class="mb-6">
+          <label
+            htmlFor="coupanCode"
+            class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+          >
+            Coupan Code
+          </label>
+          <input
+            type="text"
+            id="coupanCode"
+            name="coupanCode"
+            formControlName="coupanCode"
+            [ngClass]="[
+              isEditing() ? 'bg-gray-50' : 'bg-gray-900',
+              'border',
+              'border-gray-300',
+              isEditing() ? 'text-gray-900' : 'text-gray-200',
+
+              'text-sm',
+              'rounded-lg',
+              'focus:ring-blue-500',
+              'focus:border-blue-500',
+              'block',
+              'w-full',
+              'p-2.5',
+              'dark:bg-gray-700',
+              'dark:border-gray-600',
+              'dark:placeholder-gray-400',
+              'dark:text-white',
+              'dark:focus:ring-blue-500',
+              'dark:focus:border-blue-500'
+            ]"
+            placeholder="enter coupan code"
+          />
+        </div>
+        <div class="mb-6">
+          <label
+            htmlFor="discount"
+            class="block mb-2 text-sm font-medium text-white dark:text-gray-300"
+          >
+            Discount
+          </label>
+          <input
+            type="number"
+            id="discount"
+            name="discount"
+            formControlName="discount"
+            [ngClass]="[
+              isEditing() ? 'bg-gray-50' : 'bg-gray-900',
+              'border',
+              'border-gray-300',
+              isEditing() ? 'text-gray-900' : 'text-gray-200',
+
+              'text-sm',
+              'rounded-lg',
+              'focus:ring-blue-500',
+              'focus:border-blue-500',
+              'block',
+              'w-full',
+              'p-2.5',
+              'dark:bg-gray-700',
+              'dark:border-gray-600',
+              'dark:placeholder-gray-400',
+              'dark:text-white',
+              'dark:focus:ring-blue-500',
+              'dark:focus:border-blue-500'
+            ]"
+            placeholder="enter discount percent"
+          />
+        </div>
+      </div>
+      @if(isEditing()){
+      <div class="flex justify-center gap-6">
+        <button
+          type="button"
+          mat-raised-button
+          mat-dialog-close
+          (click)="onCancelButtonClick()"
+        >
+          Cancel
+        </button>
+        <button type="submit" mat-raised-button cdkFocusInitial>Update</button>
+      </div>
+      }
+    </form>
+  </div>
+</div>
 }

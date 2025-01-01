@@ -24,7 +24,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.scss',
 })
-export class SignInComponent {
+export class SignInComponent implements OnInit {
   loginForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
@@ -35,15 +35,9 @@ export class SignInComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
-
-    this.store
-      .select(selectIsLoading)
-      .pipe(
-        tap((data) => {
-          this.isLoading.set(data);
-        })
-      )
-      .subscribe();
+  }
+  ngOnInit(): void {
+    console.log('ngOnIt called');
   }
   isLoading = signal<boolean>(false);
 

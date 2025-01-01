@@ -3,6 +3,9 @@ import {
   createCourse,
   createCourseFaliure,
   createCourseSuccess,
+  createReview,
+  createReviewFaliure,
+  createReviewSuccess,
   deleteCourse,
   deleteCourseFailure,
   deleteCourseSuccess,
@@ -37,6 +40,7 @@ export class CourseEffects {
   loadCourseById$;
   updateCourse$;
   deleteCourse$;
+  createReview$;
   allReviewsCourseId$;
   constructor(private action$: Actions, private courseService: CourseService) {
     console.log('Actions injected:', this.action$);
@@ -140,6 +144,22 @@ export class CourseEffects {
       )
     );
 
+    // Create Review
+    this.createReview$ = createEffect(() =>
+      this.action$.pipe(
+        ofType(createReview),
+        mergeMap(({ id, data }) => {
+          return this.courseService.createReview(id, data).pipe(
+            map((resData) => createReviewSuccess({ review: resData.review })),
+            //map(() => loadReviewsByCourseIdSuccess),
+            catchError((error) =>
+              of(createReviewFaliure({ error: error.message }))
+            )
+          );
+        })
+      )
+    );
+
     // All Reviews By Course ID
     this.allReviewsCourseId$ = createEffect(() =>
       this.action$.pipe(
@@ -150,7 +170,7 @@ export class CourseEffects {
         mergeMap((action) =>
           this.courseService.allReviewsByCourseId(action.course._id).pipe(
             map((resData) =>
-              loadReviewsByCourseIdSuccess({ reviews: resData })
+              loadReviewsByCourseIdSuccess({ reviews: resData.reviews })
             ),
             catchError((error) =>
               of(loadReviewsByCourseIdFailure({ error: error.message }))

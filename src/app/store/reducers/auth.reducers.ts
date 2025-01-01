@@ -33,9 +33,12 @@ const authReducer = createReducer(
     return {
       ...state,
       user: null,
+      token: '',
+      role: '',
       isAuthenticated: false,
       isLoading: false,
       error: '',
+      message: action.message,
     };
   }),
   on(AuthActions.logoutFailure, (state, action) => {

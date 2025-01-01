@@ -1,10 +1,19 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, UrlTree, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { selectRole, selectToken } from '../store/selectors/auth.selectors';
 
 export const authGuard: CanActivateFn = (route, state) => {
+  const store = inject(Store);
   const router: Router = inject(Router);
-  const role = sessionStorage.getItem('role');
-  const token = sessionStorage.getItem('token');
+  /* const role = sessionStorage.getItem('role');
+  const token = sessionStorage.getItem('token'); */
+  let token: string | null = null;
+  let role: string | null = null;
+
+  store.select(selectToken).subscribe((t) => (token = t));
+  store.select(selectRole).subscribe((r) => (role = r));
+
   const isAdminRoute = state.url.startsWith('/admin');
   const isUserRoute = state.url.startsWith('/main');
   const isPublicRoute =

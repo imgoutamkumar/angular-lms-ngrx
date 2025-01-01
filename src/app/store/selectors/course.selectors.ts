@@ -14,3 +14,7 @@ export const selectSelectedCourse = createSelector(getCourseState, (state) => {
 export const selectIsLoading = createSelector(getCourseState, (state) => {
   return state.isLoading;
 });
+
+export const selectCourseReviews = createSelector(getCourseState, (state) => {
+  return state.selectedCourseReviews;
+});

@@ -7,6 +7,7 @@ export interface AuthState {
   token: string;
   role: string;
   error: string | any;
+  message: string;
 }
 export const authState: AuthState = {
   isLoading: false,
@@ -15,4 +16,5 @@ export const authState: AuthState = {
   token: '',
   role: '',
   error: null,
+  message: '',
 };

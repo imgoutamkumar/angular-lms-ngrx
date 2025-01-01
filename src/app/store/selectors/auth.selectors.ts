@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { authState } from '../states/auth.state';
+import { AuthState, authState } from '../states/auth.state';
 
 export const selectAuthState = createFeatureSelector<any>('Auth');
 
@@ -29,6 +29,11 @@ export const selectError = createSelector(
   (state) => state.error
 );
 
+export const selectMessage = createSelector(
+  selectAuthState,
+  (state) => state.message
+);
+
 // Combined selector (if needed)
 /* export const selectAuthInfo = createSelector(selectAuthState, (state) => ({
   user: state.user,
@@ -36,3 +41,11 @@ export const selectError = createSelector(
   token: state.token,
   role: state.role,
 })); */
+
+export const selectPersistAuthState = (state: { auth: AuthState }) =>
+  state.auth;
+
+export const selectPersistToken = createSelector(
+  selectPersistAuthState,
+  (auth) => auth.token
+);

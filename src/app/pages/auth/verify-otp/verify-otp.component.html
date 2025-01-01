@@ -2,7 +2,7 @@
   class="w-full min-h-screen bg-gray-50 flex flex-col sm:justify-center items-center pt-6 sm:pt-0 px-2"
 >
   <div class="w-full sm:max-w-md p-5 mx-auto border rounded-md">
-    <h2 class="text-center">Verify OTP</h2>
+    <h3 class="text-center">Verify OTP</h3>
     <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
       <div class="mb-4 mx-auto flex justify-between items-center">
         <input
@@ -11,7 +11,7 @@
           type="text"
           maxlength="1"
           class="size-12 border border-gray-300 focus:border-black focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 text-xl md:font-semibold rounded-lg text-center bg-white"
-          formControlName="digits.at(i)"
+          [formControlName]="i"
           (input)="onInput($event, i)"
         />
       </div>

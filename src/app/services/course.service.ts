@@ -14,7 +14,7 @@ export class CourseService {
       `https://node-lms-restapi.onrender.com/api/course/create`,
       data,
       {
-        withCredentials: true, // Ensure cookies are sent with the request
+        withCredentials: true, // Include cookies with the request
       }
     );
   }
@@ -48,11 +48,22 @@ export class CourseService {
     );
   }
 
+  createReview(id: string, data: any): Observable<any> {
+    console.log('id :', id, 'data :', data);
+    return this.httpClient.put<any>(
+      `https://node-lms-restapi.onrender.com/api/course/${id}/review`,
+      data,
+      {
+        withCredentials: true, // Include cookies with the request
+      }
+    );
+  }
+
   allReviewsByCourseId(id: string): Observable<any> {
     return this.httpClient.get<any>(
       `https://node-lms-restapi.onrender.com/api/course/${id}/reviews`,
       {
-        withCredentials: true, // Ensure cookies are sent with the request
+        withCredentials: true, // Include cookies with the request
       }
     );
   }

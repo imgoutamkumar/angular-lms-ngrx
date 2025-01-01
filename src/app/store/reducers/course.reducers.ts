@@ -2,6 +2,9 @@ import { createReducer, on, State } from '@ngrx/store';
 import { courseInitialState } from '../states/course.state';
 import {
   createCourseFaliure,
+  createReview,
+  createReviewFaliure,
+  createReviewSuccess,
   deleteCourseSuccess,
   loadCourseById,
   loadCourseByIdFailure,
@@ -18,10 +21,14 @@ import {
   loadCourseByIdSuccess,
 } from '../actions/course.action';
 import { Course } from '../../models/course.models';
+import { map } from 'rxjs';
 
 const courseReducer = createReducer(
   courseInitialState,
-  on(loadCourses, (state) => ({ ...state, isLoading: true })),
+  on(loadCourses, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
   on(loadCoursesSuccess, (state, action) => {
     return {
       ...state,
@@ -53,7 +60,11 @@ const courseReducer = createReducer(
     };
   }),
 
-  on(loadCourseById, (state) => ({ ...state, isLoading: true })),
+  on(loadCourseById, (state) => ({
+    ...state,
+    isLoading: true,
+    selectedCourseReviews: [],
+  })),
   on(loadCourseByIdSuccess, (state, action) => {
     return {
       ...state,
@@ -89,7 +100,24 @@ const courseReducer = createReducer(
   on(loadReviewsByCourseIdFailure, (state, action) => ({
     ...state,
     error: action.error,
-  }))
+  })),
+
+  //Create Course Review
+  on(createReview, (state) => ({ ...state })),
+  on(createReviewSuccess, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      selectedCourseReviews: [action.review, ...state.selectedCourseReviews],
+    };
+  }),
+  on(createReviewFaliure, (state, action) => {
+    return {
+      ...state,
+      isLoading: false,
+      error: action.error,
+    };
+  })
 );
 
 export function CourseReducer(state: any, action: any) {

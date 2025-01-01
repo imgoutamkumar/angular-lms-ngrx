@@ -10,6 +10,7 @@ import { CourseEffects } from './store/effects/course.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { AuthEffects } from './store/effects/auth.effects';
 import { AuthReducer } from './store/reducers/auth.reducers';
+import { metaReducers } from './store/reducers/meta.reducers';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -18,7 +19,10 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
-    provideStore({ Course: CourseReducer, Auth: AuthReducer }),
+    provideStore(
+      { Course: CourseReducer, Auth: AuthReducer },
+      { metaReducers }
+    ),
     provideEffects([CourseEffects, AuthEffects]),
     provideStoreDevtools(),
     provideAnimationsAsync(),

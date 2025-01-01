@@ -27,7 +27,7 @@ export class AdminHeaderComponent {
     this.store.dispatch(AuthActions.logout());
     this.store.select(selectIsAuthenticated).subscribe({
       next: (result) => {
-        if (result === false) {
+        if (!result) {
           this.router.navigate(['/auth/signin']);
         }
       },

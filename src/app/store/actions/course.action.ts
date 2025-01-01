@@ -86,3 +86,17 @@ export const loadReviewsByCourseIdFailure = createAction(
   '[Course] Load Reviews By Course ID Failure',
   props<{ error: any }>()
 );
+
+//create review
+export const createReview = createAction(
+  '[Course] Create Review',
+  props<{ id: string; data: any }>()
+);
+export const createReviewSuccess = createAction(
+  '[Course] Create Review Success',
+  props<{ review: any }>()
+);
+export const createReviewFaliure = createAction(
+  '[Course] Create Review Faliure',
+  props<{ error: string }>()
+);

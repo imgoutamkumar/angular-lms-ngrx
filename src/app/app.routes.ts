@@ -113,6 +113,13 @@ export const routes: Routes = [
             (m) => m.CourseDetailsComponent
           ),
       },
+      {
+        path: 'allStudents',
+        loadComponent: () =>
+          import('./pages/admin/students/students.component').then(
+            (m) => m.StudentsComponent
+          ),
+      },
     ],
   },
   {

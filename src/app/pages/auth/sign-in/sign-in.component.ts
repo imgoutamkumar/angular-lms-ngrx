@@ -13,7 +13,7 @@ import {
   selectIsLoading,
   selectRole,
 } from '../../../store/selectors/auth.selectors';
-import { filter, Observable, switchMap, take, tap } from 'rxjs';
+import { filter, Observable, Subject, switchMap, take, tap } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 
@@ -25,6 +25,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './sign-in.component.scss',
 })
 export class SignInComponent implements OnInit {
+  isLoading = new Subject<any>();
   loginForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
@@ -39,13 +40,12 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
     console.log('ngOnIt called');
   }
-  isLoading = signal<boolean>(false);
 
   onLoginFormSubmit() {
     if (this.loginForm.invalid) {
       return;
     }
-    this.store.select(selectIsLoading);
+    this.isLoading.next(this.store.select(selectIsLoading));
     console.log('this.loginForm.value :', this.loginForm.value);
     // Perform login logic here (e.g., dispatch NgRx action or call service)
     this.store.dispatch(AuthActions.login(this.loginForm.value));

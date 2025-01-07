@@ -1,7 +1,12 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideStore } from '@ngrx/store';
 import { CourseReducer } from './store/reducers/course.reducers';
@@ -13,12 +18,13 @@ import { AuthReducer } from './store/reducers/auth.reducers';
 import { metaReducers } from './store/reducers/meta.reducers';
 import { UserReducer } from './store/reducers/user.reducers';
 import { UserEffects } from './store/effects/user.effects';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     //provideClientHydration(),
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
     provideHttpClient(withFetch()),
     provideAnimationsAsync(),
     provideStore(
@@ -28,5 +34,6 @@ export const appConfig: ApplicationConfig = {
     provideEffects([CourseEffects, AuthEffects, UserEffects]),
     provideStoreDevtools(),
     provideAnimationsAsync(),
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
 };

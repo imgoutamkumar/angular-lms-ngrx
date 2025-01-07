@@ -12,6 +12,7 @@ const userReducer = createReducer(
   on(UserActions.loadUsersSuccess, (state, action) => ({
     ...state,
     users: action.users,
+    total: action.total,
     isLoading: false,
     error: null, // Clear error on success
   })),

@@ -24,13 +24,13 @@ export function sessionStorageMetaReducer(
 
     // Process the action and get the new state
     const nextState = reducer(state, action);
-    console.log('nextState', nextState);
-    console.log('action', action);
+    /* console.log('nextState', nextState);
+    console.log('action', action); */
     // Persist only token, role, and userId (userId extracted from user object)
     // const authState = (nextState as { Auth: AuthState })?.Auth;
     const authState = nextState.Auth as AuthState;
     if (authState) {
-      console.log('authState', authState);
+      //console.log('authState', authState);
       if (authState.token) {
         sessionStorage.setItem('token', authState.token);
       } else {

@@ -1,1 +1,88 @@
-<p class="text-white">students works!</p>
+@let totalUser = total$ | async;
+<div class="bg-black w-full h-full">
+  <div class="flex items-center justify-between px-4">
+    <h3 class="text-white py-4 px-6 text-[1.5rem]">All Students</h3>
+
+    <input
+      name="searchTerm"
+      (input)="onSearch($event)"
+      type="text"
+      class="px-3 h-[40px] min-w-[300px] w-[40%] border border-white rounded-full"
+      placeholder="search students..."
+    />
+  </div>
+  <div class="example-container mat-elevation-z8">
+    @if (isLoadingResults || isRateLimitReached) {
+    <div class="example-loading-shade">
+      @if (isLoadingResults) {
+      <mat-spinner color="primary" diameter="40"></mat-spinner>
+      } @if (isRateLimitReached) {
+      <div class="example-rate-limit-reached">
+        Data limit has been reached. It will be reset in one minute.
+      </div>
+      }
+    </div>
+    }
+
+    <div class="example-table-container">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        class="example-table"
+        matSort
+        matSortActive="firstName"
+        matSortDisableClear
+        matSortDirection="asc"
+      >
+        <!-- Number Column -->
+        <ng-container matColumnDef="Id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+        </ng-container>
+
+        <!-- Title Column -->
+        <ng-container matColumnDef="firstName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+            First Name
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.firstName }}</td>
+        </ng-container>
+
+        <!-- State Column -->
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef>Last Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.lastName }}</td>
+        </ng-container>
+
+        <!-- Created Column -->
+        <ng-container matColumnDef="gender">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+            Gender
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.gender }}</td>
+        </ng-container>
+        <!-- Created Column -->
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
+            Phone
+          </th>
+          <td mat-cell *matCellDef="let row">{{ row.phone }}</td>
+        </ng-container>
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      [length]="totalUser"
+      [pageSize]="queryParams.limit"
+      showFirstLastButtons
+      (page)="onPageChange($event)"
+      aria-label="Select page of GitHub search results"
+    ></mat-paginator>
+  </div>
+</div>

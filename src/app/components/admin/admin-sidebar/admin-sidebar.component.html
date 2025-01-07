@@ -1,20 +1,36 @@
 <div class="w-full flex flex-col">
   <section class="w-full flex flex-col items-center text-[1rem] gap-2">
-    <div
-      class="w-full flex justify-center items-center rounded-lg py-1 px-4 bg-[#161616] text-[0.9rem] text-[#BD2734] hover:bg-[#1f1f1f] hover:text-white font-[400] cursor-pointer gap-2"
-    >
-      <mat-icon class="text-[1rem] flex justify-center items-center"
-        >format_list_bulleted</mat-icon
+    <a class="w-full" routerLink="/admin/courseList">
+      <div
+        class="w-full flex justify-center items-center rounded-lg py-1 px-4 bg-[#161616] text-[0.9rem] text-[#BD2734] hover:bg-[#1f1f1f] hover:text-white font-[400] cursor-pointer gap-2"
       >
-      <a routerLink="/admin/courseList">All Products</a>
-    </div>
-    <div
+        <mat-icon class="text-[1rem] flex justify-center items-center"
+          >format_list_bulleted</mat-icon
+        >
+        <!-- <a routerLink="/admin/courseList"></a> -->
+        All Products
+      </div>
+    </a>
+
+    <a class="w-full" routerLink="/admin/allStudents">
+      <div
+        class="w-full flex justify-center items-center rounded-lg py-1 px-4 bg-[#161616] text-[0.9rem] text-[#BD2734] hover:bg-[#1f1f1f] hover:text-white font-[400] cursor-pointer gap-2"
+      >
+        <mat-icon class="text-[1rem] flex justify-center items-center"
+          >groups_2</mat-icon
+        >
+        <!-- <a routerLink="/admin/courseList"></a> -->
+        All Students
+      </div>
+    </a>
+
+    <!-- <div
       class="w-full flex justify-center items-center rounded-lg py-1 px-4 bg-[#161616] text-[0.9rem] text-[#BD2734] hover:bg-[#1f1f1f] hover:text-white font-[400] cursor-pointer gap-2"
     >
       <mat-icon class="text-[1rem] flex justify-center items-center"
         >groups_2</mat-icon
       >
       <a routerLink="/admin/allStudents">All Students</a>
-    </div>
+    </div> -->
   </section>
 </div>

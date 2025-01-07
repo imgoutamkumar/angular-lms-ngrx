@@ -5,12 +5,12 @@
 }@else {
 <div class="bg-black">
   <div class="max-w-5xl mx-auto px-4 pt-4 pb-12 flex flex-col flex-grow">
-    <div [ngClass]="['flex', 'justify-between', 'items-center']">
+    <div [ngClass]="['flex', 'justify-between', 'items-center', 'py-4']">
       @if (isEditing()) {
-      <h3 mat-dialog-title class="text-white">Update Details</h3>
+      <h3 mat-dialog-title class="text-white text-2xl">Update Details</h3>
 
       }@else {
-      <h3 mat-dialog-title class="text-white">Course Details</h3>
+      <h3 mat-dialog-title class="text-white text-2xl">Course Details</h3>
       <button type="button" mat-raised-button (click)="onEditButtonClicked()">
         <mat-icon>border_color</mat-icon> Edit Details
       </button>
